@@ -34,10 +34,10 @@
 
     <form:form modelAttribute="pet" method="${method}"
                class="form-horizontal">
-        <div class="control-group" id="owner">
-            <label class="control-label">Owner </label>
+        <div class="control-group" id="customer">
+            <label class="control-label">Customer </label>
 
-            <c:out value="${pet.owner.firstName} ${pet.owner.lastName}"/>
+            <c:out value="${pet.customer.firstName} ${pet.customer.lastName}"/>
         </div>
         <visits:inputField label="Name" name="name"/>
         <visits:inputField label="Birth Date" name="birthDate"/>

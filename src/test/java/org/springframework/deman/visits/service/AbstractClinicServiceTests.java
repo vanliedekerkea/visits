@@ -25,7 +25,7 @@ import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.deman.visits.model.Owner;
+import org.springframework.deman.visits.model.Customer;
 import org.springframework.deman.visits.model.Pet;
 import org.springframework.deman.visits.model.PetType;
 import org.springframework.deman.visits.model.Vet;
@@ -61,48 +61,48 @@ public abstract class AbstractClinicServiceTests {
 
     @Test
     @Transactional
-    public void findOwners() {
-        Collection<Owner> owners = this.clinicService.findOwnerByLastName("Davis");
-        assertEquals(2, owners.size());
-        owners = this.clinicService.findOwnerByLastName("Daviss");
-        assertEquals(0, owners.size());
+    public void findCustomers() {
+        Collection<Customer> customers = this.clinicService.findCustomerByLastName("Davis");
+        assertEquals(2, customers.size());
+        customers = this.clinicService.findCustomerByLastName("Daviss");
+        assertEquals(0, customers.size());
     }
 
     @Test
-    public void findSingleOwner() {
-        Owner owner1 = this.clinicService.findOwnerById(1);
-        assertTrue(owner1.getLastName().startsWith("Franklin"));
-        Owner owner10 = this.clinicService.findOwnerById(10);
-        assertEquals("Carlos", owner10.getFirstName());
+    public void findSingleCustomer() {
+        Customer customer1 = this.clinicService.findCustomerById(1);
+        assertTrue(customer1.getLastName().startsWith("Franklin"));
+        Customer customer10 = this.clinicService.findCustomerById(10);
+        assertEquals("Carlos", customer10.getFirstName());
 
-        assertEquals(owner1.getPets().size(), 1);
-    }
-
-    @Test
-    @Transactional
-    public void insertOwner() {
-        Collection<Owner> owners = this.clinicService.findOwnerByLastName("Schultz");
-        int found = owners.size();
-        Owner owner = new Owner();
-        owner.setFirstName("Sam");
-        owner.setLastName("Schultz");
-        owner.setAddress("4, Evans Street");
-        owner.setCity("Wollongong");
-        owner.setTelephone("4444444444");
-        this.clinicService.saveOwner(owner);
-        Assert.assertNotEquals("Owner Id should have been generated", owner.getId().longValue(), 0);
-        owners = this.clinicService.findOwnerByLastName("Schultz");
-        assertEquals("Verifying number of owners after inserting a new one.", found + 1, owners.size());
+        assertEquals(customer1.getPets().size(), 1);
     }
 
     @Test
     @Transactional
-    public void updateOwner() throws Exception {
-        Owner o1 = this.clinicService.findOwnerById(1);
+    public void insertCustomer() {
+        Collection<Customer> customers = this.clinicService.findCustomerByLastName("Schultz");
+        int found = customers.size();
+        Customer customer = new Customer();
+        customer.setFirstName("Sam");
+        customer.setLastName("Schultz");
+        customer.setAddress("4, Evans Street");
+        customer.setCity("Wollongong");
+        customer.setTelephone("4444444444");
+        this.clinicService.saveCustomer(customer);
+        Assert.assertNotEquals("Customer Id should have been generated", customer.getId().longValue(), 0);
+        customers = this.clinicService.findCustomerByLastName("Schultz");
+        assertEquals("Verifying number of customers after inserting a new one.", found + 1, customers.size());
+    }
+
+    @Test
+    @Transactional
+    public void updateCustomer() throws Exception {
+        Customer o1 = this.clinicService.findCustomerById(1);
         String old = o1.getLastName();
         o1.setLastName(old + "X");
-        this.clinicService.saveOwner(o1);
-        o1 = this.clinicService.findOwnerById(1);
+        this.clinicService.saveCustomer(o1);
+        o1 = this.clinicService.findCustomerById(1);
         assertEquals(old + "X", o1.getLastName());
     }
 
@@ -112,11 +112,11 @@ public abstract class AbstractClinicServiceTests {
 	    Pet pet7 = this.clinicService.findPetById(7);
 	    assertTrue(pet7.getName().startsWith("Samantha"));
 	    assertEquals(EntityUtils.getById(types, PetType.class, 1).getId(), pet7.getType().getId());
-	    assertEquals("Jean", pet7.getOwner().getFirstName());
+	    assertEquals("Jean", pet7.getCustomer().getFirstName());
 	    Pet pet6 = this.clinicService.findPetById(6);
 	    assertEquals("George", pet6.getName());
 	    assertEquals(EntityUtils.getById(types, PetType.class, 4).getId(), pet6.getType().getId());
-	    assertEquals("Peter", pet6.getOwner().getFirstName());
+	    assertEquals("Peter", pet6.getCustomer().getFirstName());
 	}
 
 	@Test
@@ -132,20 +132,20 @@ public abstract class AbstractClinicServiceTests {
 	@Test
 	@Transactional
 	public void insertPet() {
-	    Owner owner6 = this.clinicService.findOwnerById(6);
-	    int found = owner6.getPets().size();
+	    Customer customer6 = this.clinicService.findCustomerById(6);
+	    int found = customer6.getPets().size();
 	    Pet pet = new Pet();
 	    pet.setName("bowser");
 	    Collection<PetType> types = this.clinicService.findPetTypes();
 	    pet.setType(EntityUtils.getById(types, PetType.class, 2));
 	    pet.setBirthDate(new DateTime());
-	    owner6.addPet(pet);
-	    assertEquals(found + 1, owner6.getPets().size());
-	    // both storePet and storeOwner are necessary to cover all ORM tools
+	    customer6.addPet(pet);
+	    assertEquals(found + 1, customer6.getPets().size());
+	    // both storePet and storeCustomer are necessary to cover all ORM tools
 	    this.clinicService.savePet(pet);
-	    this.clinicService.saveOwner(owner6);
-	    owner6 = this.clinicService.findOwnerById(6);
-	    assertEquals(found + 1, owner6.getPets().size());
+	    this.clinicService.saveCustomer(customer6);
+	    customer6 = this.clinicService.findCustomerById(6);
+	    assertEquals(found + 1, customer6.getPets().size());
 	    assertNotNull("Pet Id should have been generated", pet.getId());
 	}
 

@@ -28,14 +28,14 @@
             <th>Name</th>
             <th>Birth Date</th>
             <th>Type</th>
-            <th>Owner</th>
+            <th>Customer</th>
         </tr>
         </thead>
         <tr>
             <td><c:out value="${visit.pet.name}"/></td>
             <td><joda:format value="${visit.pet.birthDate}" pattern="yyyy/MM/dd"/></td>
             <td><c:out value="${visit.pet.type.name}"/></td>
-            <td><c:out value="${visit.pet.owner.firstName} ${visit.pet.owner.lastName}"/></td>
+            <td><c:out value="${visit.pet.customer.firstName} ${visit.pet.customer.lastName}"/></td>
         </tr>
     </table>
 

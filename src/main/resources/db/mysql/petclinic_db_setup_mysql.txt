@@ -1,5 +1,5 @@
 ================================================================================
-===        Spring PetClinic sample application - MySQL Configuration         ===
+===        Spring Visits sample application - MySQL Configuration         ===
 ================================================================================
 
 @author Sam Brannen
@@ -14,9 +14,9 @@
    can be found here: http://dev.mysql.com/downloads/connector/j/
    Copy the Connector/J JAR file (e.g., mysql-connector-java-5.1.5-bin.jar) into
    the db/mysql directory. Alternatively, uncomment the mysql-connector from the
-   Petclinic pom.
+   Visits pom.
 
-3) Create the PetClinic database and user by executing the "db/mysql/createDB.txt"
+3) Create the Visits database and user by executing the "db/mysql/createDB.txt"
    script.
 
 4) Open "src/main/resources/spring/jdbc.properties"; comment out all properties in the

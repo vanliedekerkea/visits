@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="visits" tagdir="/WEB-INF/tags" %>
 
 
 <html lang="en">
@@ -24,11 +24,11 @@
         <c:if test="${owner['new']}">New </c:if> Owner
     </h2>
     <form:form modelAttribute="owner" method="${method}" class="form-horizontal" id="add-owner-form">
-        <petclinic:inputField label="First Name" name="firstName"/>
-        <petclinic:inputField label="Last Name" name="lastName"/>
-        <petclinic:inputField label="Address" name="address"/>
-        <petclinic:inputField label="City" name="city"/>
-        <petclinic:inputField label="Telephone" name="telephone"/>
+        <visits:inputField label="First Name" name="firstName"/>
+        <visits:inputField label="Last Name" name="lastName"/>
+        <visits:inputField label="Address" name="address"/>
+        <visits:inputField label="City" name="city"/>
+        <visits:inputField label="Telephone" name="telephone"/>
 
         <div class="form-actions">
             <c:choose>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	- DispatcherServlet application context for PetClinic's web tier.
+	- DispatcherServlet application context for Visits's web tier.
 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -49,7 +49,7 @@
     </bean>
 
     <!-- Renders an Atom feed of the visits. Used by the BeanNameViewResolver  -->
-    <bean id="vets/vetList.atom" class="org.springframework.samples.petclinic.web.VetsAtomView"/>
+    <bean id="vets/vetList.atom" class="org.springframework.deman.visits.web.VetsAtomView"/>
 
     <!-- Renders an XML view. Used by the BeanNameViewResolver  -->
     <bean id="vets/vetList.xml" class="org.springframework.web.servlet.view.xml.MarshallingView">
@@ -58,7 +58,7 @@
 
     <oxm:jaxb2-marshaller id="marshaller">
         <!-- Object-XML mapping declared using annotations inside 'Vets' -->
-        <oxm:class-to-be-bound name="org.springframework.samples.petclinic.model.Vets"/>
+        <oxm:class-to-be-bound name="org.springframework.deman.visits.model.Vets"/>
     </oxm:jaxb2-marshaller>
 
 </beans>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    - DispatcherServlet application context for PetClinic's web tier.
+    - DispatcherServlet application context for Visits's web tier.
 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -20,7 +20,7 @@
         - POJOs labeled with the @Controller and @Service annotations are auto-detected.
     -->
     <context:component-scan
-            base-package="org.springframework.samples.petclinic.web"/>
+            base-package="org.springframework.deman.visits.web"/>
 
     <mvc:annotation-driven conversion-service="conversionService"/>
 
@@ -39,7 +39,7 @@
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="formatters">
             <set>
-                <bean class="org.springframework.samples.petclinic.web.PetTypeFormatter"/>
+                <bean class="org.springframework.deman.visits.web.PetTypeFormatter"/>
             </set>
         </property>
     </bean>

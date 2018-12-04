@@ -60,6 +60,9 @@ public class Customer extends Person {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private Set<Pet> pets;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private Set<Appointment> appointments;
 
 
     public String getAddress() {
@@ -107,8 +110,20 @@ public class Customer extends Person {
         getPetsInternal().add(pet);
         pet.setCustomer(this);
     }
+    
+    public void addAppointment(Appointment appointment) {
+    	getAppointmentsInternal().add(appointment);
+    	appointment.setCustomer(this);
+	}
 
-    /**
+    private Set<Appointment> getAppointmentsInternal() {
+    	if (this.appointments == null) {
+            this.appointments = new HashSet<Appointment>();
+        }
+        return this.appointments;
+	}
+
+	/**
      * Return the Pet with the given name, or null if none found for this Customer.
      *
      * @param name to test
@@ -116,6 +131,14 @@ public class Customer extends Person {
      */
     public Pet getPet(String name) {
         return getPet(name, false);
+    }
+    
+    public Set<Appointment> getAppointments() {
+		return this.appointments;
+	}
+    
+    public void setAppointments(Set<Appointment> appointments) {
+    	this.appointments = appointments;
     }
 
     /**
@@ -151,4 +174,6 @@ public class Customer extends Person {
                 .append("telephone", this.telephone)
                 .toString();
     }
+
+	
 }

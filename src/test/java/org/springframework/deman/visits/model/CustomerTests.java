@@ -18,6 +18,10 @@ package org.springframework.deman.visits.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.util.Date;
+import java.util.HashSet;
+
+import org.joda.time.DateTime;
 import org.junit.Test;
 import org.springframework.deman.visits.model.Customer;
 import org.springframework.deman.visits.model.Pet;
@@ -41,6 +45,20 @@ public class CustomerTests {
         customer.addPet(fido);
         assertEquals(fido, customer.getPet("Fido"));
         assertEquals(fido, customer.getPet("fido"));
+    }
+    
+    @Test
+    @Transactional
+    public void testHasAppointment() {
+        Customer customer = new Customer();
+        Appointment appointment = new Appointment();
+        appointment.setDescription("General checkup");
+        appointment.setDate(new DateTime());
+        assertNull(customer.getAppointments());
+        customer.addAppointment(appointment);
+        HashSet<Appointment> appointments = new HashSet<Appointment>();
+        appointments.add(appointment); 
+        assertEquals(appointments.toString(), customer.getAppointments().toString());
     }
 
 }

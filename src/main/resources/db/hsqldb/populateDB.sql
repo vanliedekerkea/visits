@@ -51,3 +51,9 @@ INSERT INTO visits VALUES (1, 7, '2013-01-01', 'rabies shot');
 INSERT INTO visits VALUES (2, 8, '2013-01-02', 'rabies shot');
 INSERT INTO visits VALUES (3, 8, '2013-01-03', 'neutered');
 INSERT INTO visits VALUES (4, 7, '2013-01-04', 'spayed');
+
+INSERT INTO appointments VALUES (1, 6, '2018-12-04', 'Headache and dizziness');
+INSERT INTO appointments VALUES (2, 6, '2018-12-02', 'High fever, which keeps him from working');
+INSERT INTO appointments VALUES (3, 6, '2018-11-15', 'High fever, which kept him from working');
+INSERT INTO appointments VALUES (4, 5, '2018-12-02', 'Headache since party of one week ago');
+

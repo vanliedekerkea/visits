@@ -20,11 +20,13 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
+import org.springframework.deman.visits.model.Appointment;
 import org.springframework.deman.visits.model.Customer;
 import org.springframework.deman.visits.model.Pet;
 import org.springframework.deman.visits.model.PetType;
 import org.springframework.deman.visits.model.Vet;
 import org.springframework.deman.visits.model.Visit;
+import org.springframework.deman.visits.repository.AppointmentRepository;
 import org.springframework.deman.visits.repository.CustomerRepository;
 import org.springframework.deman.visits.repository.PetRepository;
 import org.springframework.deman.visits.repository.VetRepository;
@@ -45,6 +47,7 @@ public class ClinicServiceImpl implements ClinicService {
     private VetRepository vetRepository;
     private CustomerRepository customerRepository;
     private VisitRepository visitRepository;
+    private AppointmentRepository appointmentRepository;
 
     @Autowired
     public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, CustomerRepository customerRepository, VisitRepository visitRepository) {
@@ -104,6 +107,12 @@ public class ClinicServiceImpl implements ClinicService {
     public Collection<Vet> findVets() throws DataAccessException {
         return vetRepository.findAll();
     }
+
+	@Override
+	@Transactional(readOnly = true)
+	public Appointment findAppointmentById(int id) {
+		return appointmentRepository.findById(id);
+	}
 
 
 }

@@ -49,4 +49,31 @@ public class ValidatorTests {
         Assert.assertEquals(violation.getMessage(), "may not be empty");
     }
 	
+	@Test
+    public void appointmentDateIsFilled() {
+	LocaleContextHolder.setLocale(Locale.ENGLISH);
+        Appointment appointment = new Appointment();
+        appointment.setDescription("Headache");
+
+        Validator validator = createValidator();
+        Set<ConstraintViolation<Appointment>> constraintViolations = validator.validate(appointment);
+
+        Assert.assertEquals(0, constraintViolations.size());
+    }
+	
+	@Test
+    public void descriptionCannotBeEmpty() {
+	LocaleContextHolder.setLocale(Locale.ENGLISH);
+        Appointment appointment = new Appointment();
+        appointment.setDescription("");
+
+        Validator validator = createValidator();
+        Set<ConstraintViolation<Appointment>> constraintViolations = validator.validate(appointment);
+
+        Assert.assertEquals(1, constraintViolations.size());
+        ConstraintViolation<Appointment> violation =  constraintViolations.iterator().next();
+        Assert.assertEquals(violation.getPropertyPath().toString(), "description");
+        Assert.assertEquals(violation.getMessage(), "may not be empty");        
+	}
+	
 }

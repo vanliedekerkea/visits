@@ -57,7 +57,7 @@ public class JdbcAppointmentRepositoryImpl implements AppointmentRepository {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
 
         this.insertAppointment = new SimpleJdbcInsert(dataSource)
-                .withTableName("visits")
+                .withTableName("appointments")
                 .usingGeneratedKeyColumns("id");
     }
 
@@ -73,11 +73,6 @@ public class JdbcAppointmentRepositoryImpl implements AppointmentRepository {
         }
     }
 
-    public void deleteCustomer(int id) throws DataAccessException {
-        this.jdbcTemplate.update("DELETE FROM customers WHERE id=?", id);
-    }
-
-
     /**
      * Creates a {@link MapSqlParameterSource} based on data values from the supplied {@link Appointment} instance.
      */
@@ -89,23 +84,13 @@ public class JdbcAppointmentRepositoryImpl implements AppointmentRepository {
                 .addValue("customer_id", appointment.getCustomer().getId());
     }
 
-    @Override
-    public List<Appointment> findByCustomerId(Integer customerId) {
-        final List<Appointment> appointments = this.jdbcTemplate.query(
-                "SELECT id, appointment_date, description FROM appointments WHERE customer_id=?",
-                new ParameterizedRowMapper<Appointment>() {
-                    @Override
-                    public Appointment mapRow(ResultSet rs, int row) throws SQLException {
-                        Appointment appointment = new Appointment();
-                        appointment.setId(rs.getInt("id"));
-                        Date appointmentDate = rs.getDate("appointment_date");
-                        appointment.setDate(new DateTime(appointmentDate));
-                        appointment.setDescription(rs.getString("description"));
-                        return appointment;
-                    }
-                },
-                customerId);
-        return appointments;
-    }
+  
+
+
+	@Override
+	public Appointment findById(Integer customerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

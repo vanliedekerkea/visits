@@ -25,6 +25,7 @@ import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.deman.visits.model.Appointment;
 import org.springframework.deman.visits.model.Customer;
 import org.springframework.deman.visits.model.Pet;
 import org.springframework.deman.visits.model.PetType;
@@ -76,6 +77,12 @@ public abstract class AbstractClinicServiceTests {
         assertEquals("Carlos", customer10.getFirstName());
 
         assertEquals(customer1.getPets().size(), 1);
+    }
+    
+    @Test
+    public void findSingleAppointment() {
+    	Appointment appointment = this.clinicService.findAppointmentById(1);
+    	assertTrue(appointment.getDescription().startsWith("Headache"));
     }
 
     @Test

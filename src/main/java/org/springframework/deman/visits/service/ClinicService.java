@@ -18,6 +18,7 @@ package org.springframework.deman.visits.service;
 import java.util.Collection;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.deman.visits.model.Appointment;
 import org.springframework.deman.visits.model.Customer;
 import org.springframework.deman.visits.model.Pet;
 import org.springframework.deman.visits.model.PetType;
@@ -47,5 +48,7 @@ public interface ClinicService {
     void saveCustomer(Customer customer) throws DataAccessException;
 
     Collection<Customer> findCustomerByLastName(String lastName) throws DataAccessException;
+
+	Appointment findAppointmentById(int id);
 
 }

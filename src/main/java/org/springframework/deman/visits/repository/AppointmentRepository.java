@@ -40,6 +40,6 @@ public interface AppointmentRepository {
      */
     void save(Appointment appointment) throws DataAccessException;
 
-    List<Appointment> findByCustomerId(Integer customerId);
+    Appointment findById(Integer appointmentId);
 
 }

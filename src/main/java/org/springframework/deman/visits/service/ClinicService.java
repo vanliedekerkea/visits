@@ -50,5 +50,7 @@ public interface ClinicService {
     Collection<Customer> findCustomerByLastName(String lastName) throws DataAccessException;
 
 	Appointment findAppointmentById(int id);
+	
+	Collection<Appointment> findAppointments() throws DataAccessException;
 
 }

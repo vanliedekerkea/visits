@@ -50,11 +50,12 @@ public class ClinicServiceImpl implements ClinicService {
     private AppointmentRepository appointmentRepository;
 
     @Autowired
-    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, CustomerRepository customerRepository, VisitRepository visitRepository) {
+    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, CustomerRepository customerRepository, VisitRepository visitRepository, AppointmentRepository appointmentRepository) {
         this.petRepository = petRepository;
         this.vetRepository = vetRepository;
         this.customerRepository = customerRepository;
         this.visitRepository = visitRepository;
+        this.appointmentRepository = appointmentRepository;
     }
 
     @Override
@@ -112,6 +113,12 @@ public class ClinicServiceImpl implements ClinicService {
 	@Transactional(readOnly = true)
 	public Appointment findAppointmentById(int id) {
 		return appointmentRepository.findById(id);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Collection<Appointment> findAppointments() throws DataAccessException {
+		return appointmentRepository.findAll();
 	}
 
 

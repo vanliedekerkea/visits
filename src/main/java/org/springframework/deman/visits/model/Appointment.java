@@ -72,7 +72,7 @@ public class Appointment extends BaseEntity {
      *
      * @return Value of property dateTime.
      */
-    public DateTime getDate() {
+    public DateTime getDateTime() {
         return this.dateTime;
     }
 
@@ -81,7 +81,7 @@ public class Appointment extends BaseEntity {
      *
      * @param date New value of property dateTime.
      */
-    public void setDate(DateTime date) {
+    public void setDateTime(DateTime date) {
         this.dateTime = date;
     }
 

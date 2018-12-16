@@ -53,7 +53,7 @@ public class CustomerTests {
         Customer customer = new Customer();
         Appointment appointment = new Appointment();
         appointment.setDescription("General checkup");
-        appointment.setDate(new DateTime());
+        appointment.setDateTime(new DateTime());
         assertNull(customer.getAppointments());
         customer.addAppointment(appointment);
         HashSet<Appointment> appointments = new HashSet<Appointment>();

@@ -15,8 +15,7 @@
  */
 package org.springframework.deman.visits.repository;
 
-import java.util.List;
-
+import java.util.Collection;
 import org.springframework.dao.DataAccessException;
 import org.springframework.deman.visits.model.BaseEntity;
 import org.springframework.deman.visits.model.Appointment;
@@ -41,5 +40,7 @@ public interface AppointmentRepository {
     void save(Appointment appointment) throws DataAccessException;
 
     Appointment findById(Integer appointmentId);
+    
+    Collection<Appointment> findAll();
 
 }

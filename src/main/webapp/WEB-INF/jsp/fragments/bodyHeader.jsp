@@ -9,6 +9,8 @@
         <ul class="nav">
             <li><a href="<spring:url value="/" htmlEscape="true" />"><i class="icon-home"></i>
                 Home</a></li>
+            <li><a href="<spring:url value="/appointments" htmlEscape="true" />"><i class="icon-home"></i>
+                Appointments</a></li>
             <li><a href="<spring:url value="/customers/find.html" htmlEscape="true" />"><i
                     class="icon-search"></i> Find customers</a></li>
             <li><a href="<spring:url value="/vets.html" htmlEscape="true" />"><i

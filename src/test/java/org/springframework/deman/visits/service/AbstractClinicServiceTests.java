@@ -84,6 +84,14 @@ public abstract class AbstractClinicServiceTests {
     	Appointment appointment = this.clinicService.findAppointmentById(1);
     	assertTrue(appointment.getDescription().startsWith("Headache"));
     }
+    
+    @Test
+    public void insertAppointment() {
+    	Appointment appointment = new Appointment();
+    	appointment.setDescription("Appointment test");
+    	this.clinicService.saveAppointment(appointment);
+        Assert.assertNotEquals("Appointment Id should have been generated", appointment.getId().longValue(), 0);
+    }
 
     @Test
     @Transactional

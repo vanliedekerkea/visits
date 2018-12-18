@@ -53,4 +53,6 @@ public interface ClinicService {
 	
 	Collection<Appointment> findAppointments() throws DataAccessException;
 
+	void saveAppointment(Appointment appointment);
+
 }

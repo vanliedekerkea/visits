@@ -121,5 +121,11 @@ public class ClinicServiceImpl implements ClinicService {
 		return appointmentRepository.findAll();
 	}
 
+	@Override
+	@Transactional
+	public void saveAppointment(Appointment appointment) {
+		appointmentRepository.save(appointment);
+	}
+
 
 }

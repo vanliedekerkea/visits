@@ -66,7 +66,7 @@ CREATE INDEX visits_pet_id ON visits (pet_id);
 
 CREATE TABLE appointments (
   id          INTEGER IDENTITY PRIMARY KEY,
-  customer_id      INTEGER NOT NULL,
+  customer_id      INTEGER,
   appointment_date  DATE,
   description VARCHAR(255)
 );

@@ -86,6 +86,7 @@ public abstract class AbstractClinicServiceTests {
     }
     
     @Test
+    @Transactional
     public void insertAppointment() {
     	Appointment appointment = new Appointment();
     	appointment.setDescription("Appointment test");

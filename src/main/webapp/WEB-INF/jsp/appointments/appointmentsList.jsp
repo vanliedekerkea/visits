@@ -25,7 +25,8 @@
         </datatables:column>
     </datatables:table>    
     <jsp:include page="../fragments/footer.jsp"/>
-
+    <p><fmt:formatDate value="${beginOfWeek}" pattern="dd-MM-yyyy"/></p>
+    <p><fmt:formatDate value="${endOfWeek}" pattern="dd-MM-yyyy"/></p>
 </div>
 </body>
 

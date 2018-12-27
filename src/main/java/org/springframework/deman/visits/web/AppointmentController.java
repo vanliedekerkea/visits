@@ -15,9 +15,13 @@
  */
 package org.springframework.deman.visits.web;
 
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Map;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.deman.visits.model.Customer;
 import org.springframework.deman.visits.model.Pet;
@@ -54,6 +58,11 @@ public class AppointmentController {
     @RequestMapping(value = "/appointments", method = RequestMethod.GET)
     public String getAll(Map<String, Object> model) {
     	model.put("selections", this.clinicService.findAppointments());
+    	DateTime currentDateTime = new DateTime(new Date());
+    	Date beginOfWeek = new Date(currentDateTime.withDayOfWeek(1).getMillis());
+    	Date endOfWeek = new Date(currentDateTime.withDayOfWeek(7).getMillis());
+    	model.put("beginOfWeek", beginOfWeek);
+    	model.put("endOfWeek", endOfWeek);
     	return "appointments/appointmentsList";
     }
     

@@ -15,6 +15,7 @@
  */
 package org.springframework.deman.visits.web;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -58,12 +59,19 @@ public class AppointmentController {
     @RequestMapping(value = "/appointments", method = RequestMethod.GET)
     public String getAll(Map<String, Object> model) {
     	model.put("selections", this.clinicService.findAppointments());
-    	DateTime currentDateTime = new DateTime(new Date());
-    	Date beginOfWeek = new Date(currentDateTime.withDayOfWeek(1).getMillis());
-    	Date endOfWeek = new Date(currentDateTime.withDayOfWeek(7).getMillis());
-    	model.put("beginOfWeek", beginOfWeek);
-    	model.put("endOfWeek", endOfWeek);
     	return "appointments/appointmentsList";
+    }
+    
+    @RequestMapping(value = "/appointments-week", method = RequestMethod.GET)
+    public String getAppointmentsWeek(Map<String, Object> model) {
+    	DateTime currentDateTime = new DateTime(new Date());
+    	Collection<Date> daysOfWeek = new ArrayList<>();
+    	for(int i = 0; i < 7; i++) {
+    		Date dayOfWeek = new Date(currentDateTime.withDayOfWeek(i + 1).getMillis());
+    		daysOfWeek.add(dayOfWeek);
+    	}
+    	model.put("daysOfWeek", daysOfWeek);
+    	return "appointments/appointmentsList/week";
     }
     
 }

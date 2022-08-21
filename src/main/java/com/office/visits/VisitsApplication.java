@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@EntityScan("com.office.visits.model") 
 @EnableAutoConfiguration
 @ComponentScan(basePackages = {"com.office.visits"})
-@EntityScan("com.*") 
 public class VisitsApplication {
 
 	public static void main(String[] args) {

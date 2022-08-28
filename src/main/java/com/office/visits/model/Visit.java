@@ -1,6 +1,5 @@
 package com.office.visits.model;
 
-import java.time.Duration;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -8,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Visit {
@@ -16,29 +16,27 @@ public class Visit {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date date;
-	private Duration duration;
-	private String title;
 	
-	public Visit() {
-		this.date = new Date();
-		this.duration = Duration.ofHours(1);
-	}
+	private Integer durationInMinutes;
+	
+	private String title;
 
 	public Date getDate() {
 		return date;
 	}
-	
+
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
-	public Duration getDuration() {
-		return duration;
+
+	public Integer getDurationInMinutes() {
+		return durationInMinutes;
 	}
-	
-	public void setDuration(Duration duration) {
-		this.duration = duration;
+
+	public void setDurationInMinutes(Integer durationInMinutes) {
+		this.durationInMinutes = durationInMinutes;			
 	}
 
 	public String getTitle() {
@@ -49,5 +47,4 @@ public class Visit {
 		this.title = title;
 	}
 
-	
 }

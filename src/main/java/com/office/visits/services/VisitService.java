@@ -22,5 +22,7 @@ public class VisitService {
 		return visitRepository.save(visit);
 	}
 
-
+	public void deleteById(Long id) {
+		visitRepository.deleteById(id);
+	}
 }

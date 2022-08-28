@@ -22,6 +22,10 @@ public class Visit {
 	private Integer durationInMinutes;
 	
 	private String title;
+	
+	public Long getId() {
+		return this.id;
+	}
 
 	public Date getDate() {
 		return date;

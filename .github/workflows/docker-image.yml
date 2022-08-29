@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker image build -t visits-backend:$(date +%s) visits-backend:latest .
+      run: docker image build -t visits-backend:$(date +%s)
       
     - name: Push to Docker Hub
-      run: docker push arnovanliedekerke/visits-backend:latest
+      run: docker push arnovanliedekerke/visits-backend

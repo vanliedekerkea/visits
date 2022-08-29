@@ -23,7 +23,7 @@ public class PersonService {
 		return personRepository.save(person);
 	}
 
-	public Optional<Person> getVisit(Long id) {
+	public Optional<Person> getPerson(Long id) {
 		return personRepository.findById(id);
 	}
 

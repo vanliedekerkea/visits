@@ -3,11 +3,13 @@ package com.office.visits.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.office.visits.model.enums.Gender;
@@ -16,7 +18,8 @@ import com.office.visits.model.enums.Gender;
 public class Person {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_generator")
+	@SequenceGenerator(name="person_generator", sequenceName = "person_seq", allocationSize=50)
 	private long id;
 
 	@JsonFormat(pattern = "yyyy-MM-dd")
@@ -34,7 +37,7 @@ public class Person {
 
 	private String phone;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Address> addresses;
 
 	public Long getId() {

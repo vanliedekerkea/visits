@@ -10,7 +10,7 @@ docker network ls
 
 sudo mkdir -p /var/lib/postgresql/data
 
-docker container run --name postgresqldb --network visits-postgresql -e POSTGRES_USER=vanliedekerkea -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -v /data:/var/lib/postgresql/data:Z -d postgres:12.12-bullseye
+docker container run --name postgresqldb --network visits-postgresql -e POSTGRES_USER=vanliedekerkea -e POSTGRES_PASSWORD=mysecretpassword -e POSTGRES_DB=vanliedekerkea -p 5432:5432 -v /data:/var/lib/postgresql/data:Z -d postgres:12.12-bullseye
 
 docker container logs -f postgresqldb
 docker container inspect postgresqldb ,for checking the IP address, so that you can connect with the pgadmin to it

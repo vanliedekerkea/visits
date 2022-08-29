@@ -5,12 +5,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Address {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_generator")
+	@SequenceGenerator(name = "address_generator", sequenceName = "address_seq", allocationSize = 50)
 	private long id;
 
 	private String street;
@@ -24,7 +26,7 @@ public class Address {
 	private String postalCode;
 
 	private String country;
-	
+
 	@ManyToOne
 	private Person person;
 

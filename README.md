@@ -12,6 +12,8 @@ sudo mkdir -p /var/lib/postgresql/data
 
 docker container run --name postgresqldb --network visits-postgresql -e POSTGRES_USER=vanliedekerkea -e POSTGRES_PASSWORD=mysecretpassword -e POSTGRES_DB=vanliedekerkea -p 5432:5432 -v /data:/var/lib/postgresql/data:Z -d postgres:12.12-bullseye
 
+If it's the first time you run the postgres container then you will need to create the database called "vanliedekerkea". You can do this by runing pgadmin4, connecting to postgres and using the wizard for creating a database.
+
 docker container logs -f postgresqldb
 docker container inspect postgresqldb ,for checking the IP address, so that you can connect with the pgadmin to it
 

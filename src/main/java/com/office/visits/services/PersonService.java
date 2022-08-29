@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.office.visits.model.Address;
 import com.office.visits.model.Person;
 import com.office.visits.repositories.PersonRepository;
 
@@ -41,7 +42,7 @@ public class PersonService {
 			personFromDB.setGender(personToUpdate.getGender());
 			personFromDB.setEmail(personToUpdate.getEmail());
 			personFromDB.setPhone(personToUpdate.getPhone());
-			personFromDB.setAddresses(personToUpdate.getAddresses());
+			//A person's address should not be updated here
 			return personRepository.save(personFromDB);
 		} else {
 			return null;

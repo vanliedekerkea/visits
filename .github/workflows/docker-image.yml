@@ -11,6 +11,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      TAG: $(date +%s)
 
     steps:
     - uses: actions/checkout@v3
@@ -32,7 +34,7 @@ jobs:
       run: mvn clean install -DskipTests
     
     - name: Build the Docker image
-      run: docker image build -t arnovanliedekerke/visits .
+      run: docker image build -t arnovanliedekerke/visits:$TAG .
       
     - name: Push to Docker Hub
-      run: docker push arnovanliedekerke/visits
+      run: docker push arnovanliedekerke/visits:$TAG

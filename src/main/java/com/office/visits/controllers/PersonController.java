@@ -17,51 +17,50 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.office.visits.model.Visit;
-import com.office.visits.services.VisitService;
+import com.office.visits.model.Person;
+import com.office.visits.services.PersonService;
 
 @RestController
-@RequestMapping("/visits")
-public class VisitController {
+@RequestMapping("/people")
+public class PersonController {
 
 	@Autowired
-	VisitService visitService;
+	PersonService personService;
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Visit>> findAll() {
-		return new ResponseEntity<>(visitService.getAll(), HttpStatus.OK);
+	public ResponseEntity<List<Person>> findAll() {
+		return new ResponseEntity<>(personService.getAll(), HttpStatus.OK);
 	}
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Visit> createVisit(@RequestBody Visit newVisit) {
-		Visit visit = visitService.save(newVisit);
-		if (visit != null) {
-			return new ResponseEntity<>(visit, HttpStatus.CREATED);
+	public ResponseEntity<Person> createPerson(@RequestBody Person newPerson) {
+		Person person = personService.save(newPerson);
+		if (person != null) {
+			return new ResponseEntity<>(person, HttpStatus.CREATED);
 		} else {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Visit not saved properly");
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Person not saved properly");
 		}
 	}
 
 	@GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Visit> getVisit(@PathVariable("id") Long id) {
-		Optional<Visit> optionalVisit = visitService.getVisit(id);
-		if(optionalVisit.isPresent()) {
-			return new ResponseEntity<>(optionalVisit.get(), HttpStatus.OK);
-		}
-		else {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Visit not found");
+	public ResponseEntity<Person> getPerson(@PathVariable("id") Long id) {
+		Optional<Person> optionalPerson = personService.getPerson(id);
+		if (optionalPerson.isPresent()) {
+			return new ResponseEntity<>(optionalPerson.get(), HttpStatus.OK);
+		} else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Person not found");
 		}
 	}
 
 	@DeleteMapping("{id}")
-	public ResponseEntity<Visit> deleteVisit(@PathVariable("id") Long id) {
-		visitService.deleteById(id);
+	public ResponseEntity<Person> deletePerson(@PathVariable("id") Long id) {
+		personService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@PutMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Visit> updateVisit(@PathVariable("id") Long id, @RequestBody Visit visitToUpdate) {
-		return new ResponseEntity<>(visitService.updateVisit(id, visitToUpdate), HttpStatus.OK);
+	public ResponseEntity<Person> updatePerson(@PathVariable("id") Long id, @RequestBody Person personToUpdate) {
+		return new ResponseEntity<>(personService.updatePerson(id, personToUpdate), HttpStatus.OK);
 	}
 
 }

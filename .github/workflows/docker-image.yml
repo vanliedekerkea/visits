@@ -18,7 +18,6 @@ jobs:
     - name: Docker Login
       uses: docker/login-action@v2.0.0
       with:
-        registry: https://hub.docker.com/
         username: arnovanliedekerke
         password: terminatort800
         logout: true

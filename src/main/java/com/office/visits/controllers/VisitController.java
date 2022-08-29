@@ -61,12 +61,7 @@ public class VisitController {
 
 	@PutMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Visit> updateVisit(@PathVariable("id") Long id, @RequestBody Visit visitToUpdate) {
-		Visit updatedVisit = visitService.updateVisit(id, visitToUpdate);
-		if (updatedVisit != null) {
-			return new ResponseEntity<>(updatedVisit, HttpStatus.OK);
-		} else {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Visit not updated properly");
-		}
+		return new ResponseEntity<>(visitService.updateVisit(id, visitToUpdate), HttpStatus.OK);
 	}
 
 }

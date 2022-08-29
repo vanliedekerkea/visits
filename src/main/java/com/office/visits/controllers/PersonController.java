@@ -60,12 +60,7 @@ public class PersonController {
 
 	@PutMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Person> updatePerson(@PathVariable("id") Long id, @RequestBody Person personToUpdate) {
-		Person updatedPerson = personService.updatePerson(id, personToUpdate);
-		if (updatedPerson != null) {
-			return new ResponseEntity<>(updatedPerson, HttpStatus.OK);
-		} else {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Person not updated properly");
-		}
+		return new ResponseEntity<>(personService.updatePerson(id, personToUpdate), HttpStatus.OK);
 	}
 
 }

@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.office.visits.model.Address;
 import com.office.visits.model.Person;
 import com.office.visits.repositories.PersonRepository;
 

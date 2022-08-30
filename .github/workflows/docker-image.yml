@@ -39,7 +39,7 @@ jobs:
     
     - name: Build the Docker image
       run: |
-        docker image build -t arnovanliedekerke/visits:$GIT_TAG_NAME .
+        docker build . --file Dockerfile --tag arnovanliedekerke/visits:$GIT_TAG_NAME .
       
     - name: Push to Docker Hub
       run: | 

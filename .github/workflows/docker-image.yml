@@ -19,7 +19,7 @@ jobs:
       id: prepare
       uses: Surgo/docker-smart-tag-action@v1.0.3
       with:
-        docker_image: arnovanliedekerke/visits
+        # docker_image: arnovanliedekerke/visits
         tag_with_sha: 'true'
     
     - name: Docker Login

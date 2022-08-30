@@ -15,8 +15,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    - name: Get git tag
-      uses: little-core-labs/get-git-tag@v3.0.2
+    - name: Get smart tag
+      id: prepare
+      uses: Surgo/docker-smart-tag-action@v1
+      with:
+        docker_image: arnovanliedekerke/visits
     
     - name: Docker Login
       uses: docker/login-action@v2.0.0
@@ -35,7 +38,7 @@ jobs:
       run: mvn clean install -DskipTests
     
     - name: Build the Docker image
-      run: docker image build -t arnovanliedekerke/visits:$GIT_TAG_NAME .
+      run: docker image build -t arnovanliedekerke/visits:${{ steps.prepare.outputs.tag }} .
       
     - name: Push to Docker Hub
-      run: docker push arnovanliedekerke/visits:$GIT_TAG_NAME
+      run: docker push arnovanliedekerke/visits:${{ steps.prepare.outputs.tag }}

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.office.visits.model.Address;
 import com.office.visits.model.Person;
 import com.office.visits.services.PersonService;
 
@@ -61,6 +62,11 @@ public class PersonController {
 	@PutMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Person> updatePerson(@PathVariable("id") Long id, @RequestBody Person personToUpdate) {
 		return new ResponseEntity<>(personService.updatePerson(id, personToUpdate), HttpStatus.OK);
+	}
+	
+	@GetMapping(path = "{id}/addresses", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Address>> findAllPersonAddresses(@PathVariable("id") Long personId) {
+		return new ResponseEntity<>(personService.getAllPersonAddress(personId), HttpStatus.OK);
 	}
 
 }

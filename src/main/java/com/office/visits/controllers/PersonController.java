@@ -63,10 +63,16 @@ public class PersonController {
 	public ResponseEntity<Person> updatePerson(@PathVariable("id") Long id, @RequestBody Person personToUpdate) {
 		return new ResponseEntity<>(personService.updatePerson(id, personToUpdate), HttpStatus.OK);
 	}
-	
+
 	@GetMapping(path = "{id}/addresses", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Address>> findAllPersonAddresses(@PathVariable("id") Long personId) {
 		return new ResponseEntity<>(personService.getAllPersonAddress(personId), HttpStatus.OK);
 	}
 
+	@GetMapping(path = "{id}/addresses/{addressId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Address> getPersonAddress(@PathVariable("id") Long personId,
+			@PathVariable("addressId") Long addressId) {
+		return new ResponseEntity<>(personService.getPersonAddress(personId, addressId), HttpStatus.OK);
+	}
+	
 }

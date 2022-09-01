@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.office.visits.model.Address;
 import com.office.visits.model.Person;
 import com.office.visits.repositories.PersonRepository;
 
@@ -41,10 +43,16 @@ public class PersonService {
 			personFromDB.setGender(personToUpdate.getGender());
 			personFromDB.setEmail(personToUpdate.getEmail());
 			personFromDB.setPhone(personToUpdate.getPhone());
-			//A person's address should not be updated here
+			// A person's address should not be updated here
 			return personRepository.save(personFromDB);
 		} else {
 			return null;
 		}
 	}
+
+	public List<Address> getAllPersonAddress(Long id) {
+		return personRepository.findById(id).stream().findFirst().orElseThrow(() -> new EmptyResultDataAccessException(
+				String.format("No %s entity with id %s exists!", Person.class, id), 1)).getAddresses();
+	}
+
 }

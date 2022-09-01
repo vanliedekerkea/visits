@@ -55,4 +55,10 @@ public class PersonService {
 				String.format("No %s entity with id %s exists!", Person.class, id), 1)).getAddresses();
 	}
 
+	public Address getPersonAddress(Long personId, Long addressId) {
+		return this.getAllPersonAddress(personId).stream().filter(a -> addressId.equals(a.getId())).findFirst()
+				.orElseThrow(() -> new EmptyResultDataAccessException(
+						String.format("No %s entity with id %s exists!", Address.class, addressId), 1));
+	}
+
 }

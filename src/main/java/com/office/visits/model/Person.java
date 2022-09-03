@@ -4,22 +4,27 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.office.visits.model.enums.Gender;
 
 @Entity
+@Table(name = "PERSON")
 public class Person {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_generator")
-	@SequenceGenerator(name="person_generator", sequenceName = "person_seq", allocationSize=50)
+	@SequenceGenerator(name = "person_generator", sequenceName = "person_seq", allocationSize = 50)
+	@Column(name = "ID")
 	private long id;
 
 	@JsonFormat(pattern = "yyyy-MM-dd")
@@ -37,7 +42,8 @@ public class Person {
 
 	private String phone;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
+	@JsonManagedReference
 	private List<Address> addresses;
 
 	public Long getId() {

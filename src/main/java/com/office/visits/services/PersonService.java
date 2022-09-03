@@ -61,4 +61,12 @@ public class PersonService {
 						String.format("No %s entity with id %s exists!", Address.class, addressId), 1));
 	}
 
+	public Person createPersonAddress(Long personId, Address address) {
+		Person person = personRepository.findById(personId).stream().findFirst()
+				.orElseThrow(() -> new EmptyResultDataAccessException(
+						String.format("No %s entity with id %s exists!", Person.class, personId), 1));
+		person.getAddresses().add(address);
+		return personRepository.save(person);
+	}
+
 }

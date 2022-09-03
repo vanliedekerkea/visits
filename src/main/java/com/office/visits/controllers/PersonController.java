@@ -74,5 +74,10 @@ public class PersonController {
 			@PathVariable("addressId") Long addressId) {
 		return new ResponseEntity<>(personService.getPersonAddress(personId, addressId), HttpStatus.OK);
 	}
-	
+
+	@PostMapping(path = "{id}/addresses", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Person> createPersonAddress(@PathVariable("id") Long personId, @RequestBody Address address) {
+		return new ResponseEntity<>(personService.createPersonAddress(personId, address), HttpStatus.OK);
+	}
+
 }

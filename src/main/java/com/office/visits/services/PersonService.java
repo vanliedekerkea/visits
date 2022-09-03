@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.office.visits.model.Address;
 import com.office.visits.model.Person;
+import com.office.visits.repositories.AddressRepository;
 import com.office.visits.repositories.PersonRepository;
 
 @Service
@@ -17,11 +18,19 @@ public class PersonService {
 	@Autowired
 	PersonRepository personRepository;
 
+	@Autowired
+	AddressRepository addressRepository;
+
 	public List<Person> getAll() {
 		return personRepository.findAll();
 	}
 
 	public Person save(Person person) {
+		for (Address a : person.getAddresses()) {
+			if (a.getPerson() == null) {
+				a.setPerson(person);
+			}
+		}
 		return personRepository.save(person);
 	}
 
@@ -65,8 +74,19 @@ public class PersonService {
 		Person person = personRepository.findById(personId).stream().findFirst()
 				.orElseThrow(() -> new EmptyResultDataAccessException(
 						String.format("No %s entity with id %s exists!", Person.class, personId), 1));
+		address.setPerson(person);
 		person.getAddresses().add(address);
 		return personRepository.save(person);
+	}
+
+	public Person deletePersonAddress(Long personId, Long addressId) {
+		Person person = this.personRepository.findById(personId).stream().findFirst()
+				.orElseThrow(() -> new EmptyResultDataAccessException(
+						String.format("No %s entity with id %s exists!", Person.class, personId), 1));
+		person.getAddresses().removeIf(a -> addressId.equals(a.getId()));
+		Person persistedPerson = personRepository.save(person);
+		addressRepository.deleteById(addressId);
+		return persistedPerson;
 	}
 
 }

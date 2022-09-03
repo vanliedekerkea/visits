@@ -1,11 +1,15 @@
 package com.office.visits.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Address {
@@ -13,6 +17,7 @@ public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_generator")
 	@SequenceGenerator(name = "address_generator", sequenceName = "address_seq", allocationSize = 50)
+	@Column(name = "ID")
 	private long id;
 
 	private String street;
@@ -28,6 +33,8 @@ public class Address {
 	private String country;
 
 	@ManyToOne
+	@JoinColumn(name = "PERSON_ID", nullable = false, referencedColumnName = "ID")
+	@JsonBackReference
 	private Person person;
 
 	public Long getId() {
@@ -84,6 +91,14 @@ public class Address {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
 }

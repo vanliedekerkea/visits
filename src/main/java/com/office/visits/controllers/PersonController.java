@@ -86,4 +86,10 @@ public class PersonController {
 		return new ResponseEntity<>(personService.deletePersonAddress(personId, addressId), HttpStatus.OK);
 	}
 
+	@PutMapping(path = "{id}/addresses/{addressId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Person> updatePersonAddress(@PathVariable("id") Long personId,
+			@PathVariable("addressId") Long addressId, @RequestBody Address address) {
+		return new ResponseEntity<>(personService.updatePersonAddress(personId, addressId, address), HttpStatus.OK);
+	}
+
 }

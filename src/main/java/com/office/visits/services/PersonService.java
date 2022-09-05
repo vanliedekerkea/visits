@@ -89,4 +89,20 @@ public class PersonService {
 		return persistedPerson;
 	}
 
+	public Person updatePersonAddress(Long personId, Long addressId, Address address) {
+		Person person = this.personRepository.findById(personId).stream().findFirst()
+				.orElseThrow(() -> new EmptyResultDataAccessException(
+						String.format("No %s entity with id %s exists!", Person.class, personId), 1));
+		Address addressFromDB = person.getAddresses().stream().filter(a -> addressId.equals(a.getId())).findFirst()
+				.orElseThrow(() -> new EmptyResultDataAccessException(
+						String.format("No %s entity with id %s exists!", Address.class, addressId), 1));
+		addressFromDB.setAdditionalCivicNumber(address.getAdditionalCivicNumber());
+		addressFromDB.setCity(address.getCity());
+		addressFromDB.setCivicNumber(address.getCivicNumber());
+		addressFromDB.setCountry(address.getCountry());
+		addressFromDB.setPostalCode(address.getPostalCode());
+		addressFromDB.setStreet(address.getStreet());
+		return personRepository.save(person);
+	}
+
 }

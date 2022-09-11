@@ -2,10 +2,13 @@ package com.office.visits.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -24,6 +27,12 @@ public class Visit {
 	private Integer durationInMinutes;
 
 	private String title;
+	
+	private boolean hasTakenPlace;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "note_id", referencedColumnName = "id")
+	private Note note;
 
 	public Long getId() {
 		return this.id;
@@ -55,6 +64,22 @@ public class Visit {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public boolean getHasTakenPlace() {
+		return hasTakenPlace;
+	}
+
+	public void setHasTakenPlace(boolean hasTakenPlace) {
+		this.hasTakenPlace = hasTakenPlace;
+	}
+
+	public Note getNote() {
+		return note;
+	}
+
+	public void setNote(Note note) {
+		this.note = note;
 	}
 
 }

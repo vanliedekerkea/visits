@@ -45,10 +45,9 @@ public class VisitController {
 	@GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Visit> getVisit(@PathVariable("id") Long id) {
 		Optional<Visit> optionalVisit = visitService.getVisit(id);
-		if(optionalVisit.isPresent()) {
+		if (optionalVisit.isPresent()) {
 			return new ResponseEntity<>(optionalVisit.get(), HttpStatus.OK);
-		}
-		else {
+		} else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Visit not found");
 		}
 	}

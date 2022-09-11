@@ -24,7 +24,7 @@ public class VisitService {
 	public Visit save(Visit visit) {
 		return visitRepository.save(visit);
 	}
-	
+
 	public Optional<Visit> getVisit(Long id) {
 		return visitRepository.findById(id);
 	}
@@ -32,7 +32,7 @@ public class VisitService {
 	public void deleteById(Long id) {
 		visitRepository.deleteById(id);
 	}
-	
+
 	@Transactional
 	public Visit updateVisit(Long id, Visit visitToUpdate) {
 		Visit visitFromDB = visitRepository.getReferenceById(id);
@@ -43,8 +43,7 @@ public class VisitService {
 			visitFromDB.setHasTakenPlace(visitToUpdate.getHasTakenPlace());
 			visitFromDB.setNote(visitToUpdate.getNote());
 			return visitRepository.save(visitFromDB);
-		}
-		else {
+		} else {
 			return null;
 		}
 	}

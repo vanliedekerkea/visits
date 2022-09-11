@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -24,6 +25,11 @@ public class Visit {
 	private Integer durationInMinutes;
 
 	private String title;
+
+	private boolean hasTakenPlace;
+
+	@Lob
+	private String note;
 
 	public Long getId() {
 		return this.id;
@@ -55,6 +61,22 @@ public class Visit {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public boolean getHasTakenPlace() {
+		return hasTakenPlace;
+	}
+
+	public void setHasTakenPlace(boolean hasTakenPlace) {
+		this.hasTakenPlace = hasTakenPlace;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 
 }

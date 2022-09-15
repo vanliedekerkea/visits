@@ -1,5 +1,6 @@
 package com.office.visits.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,6 +9,8 @@ import javax.persistence.SequenceGenerator;
 
 import com.office.visits.model.enums.ProductType;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Product {
@@ -20,7 +23,9 @@ public class Product {
     private String name;
 
     private ProductType productType;
-    
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    @JsonManagedReference
     private List<Price> prices;
 
     public long getId() {

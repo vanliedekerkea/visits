@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
 import com.office.visits.model.enums.ProductType;
+
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
@@ -26,7 +28,7 @@ public class Product {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     @JsonManagedReference
-    private List<Price> prices;
+    private List<Price> prices = Collections.emptyList();
 
     public long getId() {
         return id;

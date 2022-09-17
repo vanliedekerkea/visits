@@ -16,18 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.office.visits.model.Address;
-import com.office.visits.services.AddressService;
+import com.office.visits.services.DeleteGetUpdate;
 
 @RestController
 @RequestMapping("/addresses")
 public class AddressController {
 
 	@Autowired
-	AddressService addressService;
+	DeleteGetUpdate<Address> addressDeleteGetUpdateService;
 
 	@GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Address> getAddress(@PathVariable("id") Long id) {
-		Optional<Address> optionalAddress = addressService.getAddress(id);
+		Optional<Address> optionalAddress = addressDeleteGetUpdateService.getById(id);
 		if (optionalAddress.isPresent()) {
 			return new ResponseEntity<>(optionalAddress.get(), HttpStatus.OK);
 		} else {
@@ -37,13 +37,13 @@ public class AddressController {
 
 	@DeleteMapping("{id}")
 	public ResponseEntity<Address> deleteAddress(@PathVariable("id") Long id) {
-		addressService.deleteById(id);
+		addressDeleteGetUpdateService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@PutMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Address> updateAddress(@PathVariable("id") Long id, @RequestBody Address addressToUpdate) {
-		return new ResponseEntity<>(addressService.updateAddress(id, addressToUpdate), HttpStatus.OK);
+		return new ResponseEntity<>(addressDeleteGetUpdateService.update(id, addressToUpdate), HttpStatus.OK);
 	}
 
 }

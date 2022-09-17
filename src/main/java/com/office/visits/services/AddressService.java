@@ -13,7 +13,7 @@ import com.office.visits.repositories.AddressRepository;
 import com.office.visits.repositories.PersonRepository;
 
 @Service
-public class AddressService {
+public class AddressService implements DeleteGetUpdate<Address> {
 
 	@Autowired
 	PersonRepository personRepository;
@@ -34,24 +34,18 @@ public class AddressService {
 		return addressRepository.save(address);
 	}
 
-	public Person createPersonAddress(Long personId, Address address) {
-		Person person = personRepository.findById(personId).stream().findFirst()
-				.orElseThrow(() -> new EmptyResultDataAccessException(
-						String.format("No %s entity with id %s exists!", Person.class, personId), 1));
-		address.setPerson(person);
-		person.getAddresses().add(address);
-		return personRepository.save(person);
-	}
-
-	public Optional<Address> getAddress(Long id) {
+	@Override
+	public Optional<Address> getById(Long id) {
 		return addressRepository.findById(id);
 	}
 
+	@Override
 	public void deleteById(Long id) {
 		addressRepository.deleteById(id);
 	}
 
-	public Address updateAddress(Long id, Address addressToUpdate) {
+	@Override
+	public Address update(Long id, Address addressToUpdate) {
 		Address addressFromDB = addressRepository.getReferenceById(id);
 		if (addressFromDB != null) {
 			addressFromDB.setAdditionalCivicNumber(addressToUpdate.getAdditionalCivicNumber());

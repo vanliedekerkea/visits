@@ -48,11 +48,11 @@ public class Price {
         this.id = id;
     }
 
-    public BigDecimal getDefaultPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setDefaultPrice(BigDecimal defaultPrice) {
+    public void setPrice(BigDecimal defaultPrice) {
         this.price = defaultPrice;
     }
 

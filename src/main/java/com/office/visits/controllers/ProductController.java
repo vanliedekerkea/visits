@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.office.visits.model.Price;
 import com.office.visits.model.Product;
+import com.office.visits.services.PriceService;
 import com.office.visits.services.ProductService;
 
 @RestController
@@ -26,6 +28,9 @@ public class ProductController {
 
 	@Autowired
 	ProductService productService;
+
+	@Autowired
+	PriceService priceService;
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Product>> findAll() {
@@ -61,6 +66,16 @@ public class ProductController {
 	@PutMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Product> updateProduct(@PathVariable("id") Long id, @RequestBody Product productToUpdate) {
 		return new ResponseEntity<>(productService.updateProduct(id, productToUpdate), HttpStatus.OK);
+	}
+
+	@GetMapping(path = "{id}/prices", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Price>> findAll(@PathVariable("id") Long priceId) {
+		return new ResponseEntity<>(priceService.getAll(priceId), HttpStatus.OK);
+	}
+
+	@PostMapping(path = "{id}/prices", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Price> createPrice(@PathVariable("id") Long productId, @RequestBody Price price) {
+		return new ResponseEntity<>(priceService.save(productId, price), HttpStatus.OK);
 	}
 
 }

@@ -34,7 +34,6 @@ public class ProductService {
 	public Product updateProduct(Long id, Product productToUpdate) {
 		Product productFromDB = productRepository.getReferenceById(id);
 		if (productFromDB != null) {
-			productFromDB.setDefaultPrice(productToUpdate.getDefaultPrice());
 			productFromDB.setName(productToUpdate.getName());
 			productFromDB.setProductType(productToUpdate.getProductType());
 			return productRepository.save(productFromDB);

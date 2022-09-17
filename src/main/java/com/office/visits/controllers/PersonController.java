@@ -19,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.office.visits.model.Address;
 import com.office.visits.model.Person;
+import com.office.visits.services.AddressService;
 import com.office.visits.services.PersonService;
 
 @RestController
@@ -27,6 +28,9 @@ public class PersonController {
 
 	@Autowired
 	PersonService personService;
+
+	@Autowired
+	AddressService addressService;
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Person>> findAll() {
@@ -66,30 +70,13 @@ public class PersonController {
 
 	@GetMapping(path = "{id}/addresses", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Address>> findAllPersonAddresses(@PathVariable("id") Long personId) {
-		return new ResponseEntity<>(personService.getAllPersonAddress(personId), HttpStatus.OK);
-	}
-
-	@GetMapping(path = "{id}/addresses/{addressId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Address> getPersonAddress(@PathVariable("id") Long personId,
-			@PathVariable("addressId") Long addressId) {
-		return new ResponseEntity<>(personService.getPersonAddress(personId, addressId), HttpStatus.OK);
+		return new ResponseEntity<>(addressService.getAll(personId), HttpStatus.OK);
 	}
 
 	@PostMapping(path = "{id}/addresses", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Person> createPersonAddress(@PathVariable("id") Long personId, @RequestBody Address address) {
-		return new ResponseEntity<>(personService.createPersonAddress(personId, address), HttpStatus.OK);
-	}
-
-	@DeleteMapping(path = "{id}/addresses/{addressId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Person> deletePersonAddress(@PathVariable("id") Long personId,
-			@PathVariable("addressId") Long addressId) {
-		return new ResponseEntity<>(personService.deletePersonAddress(personId, addressId), HttpStatus.OK);
-	}
-
-	@PutMapping(path = "{id}/addresses/{addressId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Person> updatePersonAddress(@PathVariable("id") Long personId,
-			@PathVariable("addressId") Long addressId, @RequestBody Address address) {
-		return new ResponseEntity<>(personService.updatePersonAddress(personId, addressId, address), HttpStatus.OK);
+	public ResponseEntity<Address> createPersonAddress(@PathVariable("id") Long personId,
+			@RequestBody Address address) {
+		return new ResponseEntity<>(addressService.save(personId, address), HttpStatus.OK);
 	}
 
 }

@@ -31,7 +31,6 @@ public class PriceService {
 				.orElseThrow(() -> new EmptyResultDataAccessException(
 						String.format("No %s entity with id %s exists!", Product.class, productId), 1));
 		price.setProduct(product);
-		// product.getPrices().add(price);
 		return priceRepository.save(price);
 	}
 

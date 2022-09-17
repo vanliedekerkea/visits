@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.office.visits.model.Address;
@@ -57,52 +56,6 @@ public class PersonService {
 		} else {
 			return null;
 		}
-	}
-
-	public List<Address> getAllPersonAddress(Long id) {
-		return personRepository.findById(id).stream().findFirst().orElseThrow(() -> new EmptyResultDataAccessException(
-				String.format("No %s entity with id %s exists!", Person.class, id), 1)).getAddresses();
-	}
-
-	public Address getPersonAddress(Long personId, Long addressId) {
-		return this.getAllPersonAddress(personId).stream().filter(a -> addressId.equals(a.getId())).findFirst()
-				.orElseThrow(() -> new EmptyResultDataAccessException(
-						String.format("No %s entity with id %s exists!", Address.class, addressId), 1));
-	}
-
-	public Person createPersonAddress(Long personId, Address address) {
-		Person person = personRepository.findById(personId).stream().findFirst()
-				.orElseThrow(() -> new EmptyResultDataAccessException(
-						String.format("No %s entity with id %s exists!", Person.class, personId), 1));
-		address.setPerson(person);
-		person.getAddresses().add(address);
-		return personRepository.save(person);
-	}
-
-	public Person deletePersonAddress(Long personId, Long addressId) {
-		Person person = this.personRepository.findById(personId).stream().findFirst()
-				.orElseThrow(() -> new EmptyResultDataAccessException(
-						String.format("No %s entity with id %s exists!", Person.class, personId), 1));
-		person.getAddresses().removeIf(a -> addressId.equals(a.getId()));
-		Person persistedPerson = personRepository.save(person);
-		addressRepository.deleteById(addressId);
-		return persistedPerson;
-	}
-
-	public Person updatePersonAddress(Long personId, Long addressId, Address address) {
-		Person person = this.personRepository.findById(personId).stream().findFirst()
-				.orElseThrow(() -> new EmptyResultDataAccessException(
-						String.format("No %s entity with id %s exists!", Person.class, personId), 1));
-		Address addressFromDB = person.getAddresses().stream().filter(a -> addressId.equals(a.getId())).findFirst()
-				.orElseThrow(() -> new EmptyResultDataAccessException(
-						String.format("No %s entity with id %s exists!", Address.class, addressId), 1));
-		addressFromDB.setAdditionalCivicNumber(address.getAdditionalCivicNumber());
-		addressFromDB.setCity(address.getCity());
-		addressFromDB.setCivicNumber(address.getCivicNumber());
-		addressFromDB.setCountry(address.getCountry());
-		addressFromDB.setPostalCode(address.getPostalCode());
-		addressFromDB.setStreet(address.getStreet());
-		return personRepository.save(person);
 	}
 
 }

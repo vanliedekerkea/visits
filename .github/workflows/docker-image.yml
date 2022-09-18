@@ -25,7 +25,7 @@ jobs:
       uses: docker/login-action@v2.0.0
       with:
         username: arnovanliedekerke
-        password: terminatort800
+        password: ${{secrets.DOCKER_PASSWORD}}
         logout: true
           
     - name: Set up JDK 17

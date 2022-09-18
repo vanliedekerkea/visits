@@ -11,9 +11,10 @@ import com.office.visits.model.Price;
 import com.office.visits.model.Product;
 import com.office.visits.repositories.PriceRepository;
 import com.office.visits.repositories.ProductRepository;
+import com.office.visits.services.interfaces.CRUDForReference;
 
 @Service
-public class PriceService {
+public class PriceService implements CRUDForReference<Price> {
 
 	@Autowired
 	PriceRepository priceRepository;
@@ -21,11 +22,13 @@ public class PriceService {
 	@Autowired
 	ProductRepository productRepository;
 
+	@Override
 	public List<Price> getAll(Long id) {
 		return productRepository.findById(id).stream().findFirst().orElseThrow(() -> new EmptyResultDataAccessException(
 				String.format("No %s entity with id %s exists!", Price.class, id), 1)).getPrices();
 	}
 
+	@Override
 	public Price save(Long productId, Price price) {
 		Product product = productRepository.findById(productId).stream().findFirst()
 				.orElseThrow(() -> new EmptyResultDataAccessException(
@@ -34,15 +37,18 @@ public class PriceService {
 		return priceRepository.save(price);
 	}
 
-	public Optional<Price> getPrice(Long id) {
+	@Override
+	public Optional<Price> getById(Long id) {
 		return priceRepository.findById(id);
 	}
 
+	@Override
 	public void deleteById(Long id) {
 		priceRepository.deleteById(id);
 	}
 
-	public Price updatePrice(Long id, Price priceToUpdate) {
+	@Override
+	public Price update(Long id, Price priceToUpdate) {
 		Price priceFromDB = priceRepository.getReferenceById(id);
 		if (priceFromDB != null) {
 			priceFromDB.setCurrency(priceToUpdate.getCurrency());

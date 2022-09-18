@@ -19,18 +19,18 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.office.visits.model.Price;
 import com.office.visits.model.Product;
-import com.office.visits.services.PriceService;
-import com.office.visits.services.ProductService;
+import com.office.visits.services.interfaces.CRUD;
+import com.office.visits.services.interfaces.CRUDForReference;
 
 @RestController
 @RequestMapping("/products")
 public class ProductController {
 
 	@Autowired
-	ProductService productService;
+	CRUD<Product> productService;
 
 	@Autowired
-	PriceService priceService;
+	CRUDForReference<Price> priceService;
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Product>> findAll() {
@@ -49,7 +49,7 @@ public class ProductController {
 
 	@GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Product> getProduct(@PathVariable("id") Long id) {
-		Optional<Product> optionalProduct = productService.getProduct(id);
+		Optional<Product> optionalProduct = productService.getById(id);
 		if (optionalProduct.isPresent()) {
 			return new ResponseEntity<>(optionalProduct.get(), HttpStatus.OK);
 		} else {
@@ -65,7 +65,7 @@ public class ProductController {
 
 	@PutMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Product> updateProduct(@PathVariable("id") Long id, @RequestBody Product productToUpdate) {
-		return new ResponseEntity<>(productService.updateProduct(id, productToUpdate), HttpStatus.OK);
+		return new ResponseEntity<>(productService.update(id, productToUpdate), HttpStatus.OK);
 	}
 
 	@GetMapping(path = "{id}/prices", produces = MediaType.APPLICATION_JSON_VALUE)

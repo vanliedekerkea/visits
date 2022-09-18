@@ -16,18 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.office.visits.model.Address;
-import com.office.visits.services.AddressService;
+import com.office.visits.services.interfaces.CRUDForReference;
 
 @RestController
 @RequestMapping("/addresses")
 public class AddressController {
 
 	@Autowired
-	AddressService addressService;
+	CRUDForReference<Address> addressService;
 
 	@GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Address> getAddress(@PathVariable("id") Long id) {
-		Optional<Address> optionalAddress = addressService.getAddress(id);
+		Optional<Address> optionalAddress = addressService.getById(id);
 		if (optionalAddress.isPresent()) {
 			return new ResponseEntity<>(optionalAddress.get(), HttpStatus.OK);
 		} else {
@@ -43,7 +43,7 @@ public class AddressController {
 
 	@PutMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Address> updateAddress(@PathVariable("id") Long id, @RequestBody Address addressToUpdate) {
-		return new ResponseEntity<>(addressService.updateAddress(id, addressToUpdate), HttpStatus.OK);
+		return new ResponseEntity<>(addressService.update(id, addressToUpdate), HttpStatus.OK);
 	}
 
 }

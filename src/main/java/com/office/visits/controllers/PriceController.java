@@ -16,18 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.office.visits.model.Price;
-import com.office.visits.services.PriceService;
+import com.office.visits.services.interfaces.CRUDForReference;
 
 @RestController
 @RequestMapping("/prices")
 public class PriceController {
 
 	@Autowired
-	PriceService priceService;
+	CRUDForReference<Price> priceService;
 
 	@GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Price> getPrice(@PathVariable("id") Long id) {
-		Optional<Price> optionalPrice = priceService.getPrice(id);
+		Optional<Price> optionalPrice = priceService.getById(id);
 		if (optionalPrice.isPresent()) {
 			return new ResponseEntity<>(optionalPrice.get(), HttpStatus.OK);
 		} else {
@@ -43,7 +43,7 @@ public class PriceController {
 
 	@PutMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Price> updatePrice(@PathVariable("id") Long id, @RequestBody Price priceToUpdate) {
-		return new ResponseEntity<>(priceService.updatePrice(id, priceToUpdate), HttpStatus.OK);
+		return new ResponseEntity<>(priceService.update(id, priceToUpdate), HttpStatus.OK);
 	}
 
 }

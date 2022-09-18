@@ -11,9 +11,10 @@ import com.office.visits.model.Address;
 import com.office.visits.model.Person;
 import com.office.visits.repositories.AddressRepository;
 import com.office.visits.repositories.PersonRepository;
+import com.office.visits.services.interfaces.CRUDForReference;
 
 @Service
-public class AddressService {
+public class AddressService implements CRUDForReference<Address> {
 
 	@Autowired
 	PersonRepository personRepository;
@@ -21,11 +22,13 @@ public class AddressService {
 	@Autowired
 	AddressRepository addressRepository;
 
+	@Override
 	public List<Address> getAll(Long id) {
 		return personRepository.findById(id).stream().findFirst().orElseThrow(() -> new EmptyResultDataAccessException(
 				String.format("No %s entity with id %s exists!", Person.class, id), 1)).getAddresses();
 	}
 
+	@Override
 	public Address save(Long personId, Address address) {
 		Person person = personRepository.findById(personId).stream().findFirst()
 				.orElseThrow(() -> new EmptyResultDataAccessException(
@@ -34,24 +37,18 @@ public class AddressService {
 		return addressRepository.save(address);
 	}
 
-	public Person createPersonAddress(Long personId, Address address) {
-		Person person = personRepository.findById(personId).stream().findFirst()
-				.orElseThrow(() -> new EmptyResultDataAccessException(
-						String.format("No %s entity with id %s exists!", Person.class, personId), 1));
-		address.setPerson(person);
-		person.getAddresses().add(address);
-		return personRepository.save(person);
-	}
-
-	public Optional<Address> getAddress(Long id) {
+	@Override
+	public Optional<Address> getById(Long id) {
 		return addressRepository.findById(id);
 	}
 
+	@Override
 	public void deleteById(Long id) {
 		addressRepository.deleteById(id);
 	}
 
-	public Address updateAddress(Long id, Address addressToUpdate) {
+	@Override
+	public Address update(Long id, Address addressToUpdate) {
 		Address addressFromDB = addressRepository.getReferenceById(id);
 		if (addressFromDB != null) {
 			addressFromDB.setAdditionalCivicNumber(addressToUpdate.getAdditionalCivicNumber());

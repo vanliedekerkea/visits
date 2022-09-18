@@ -10,31 +10,37 @@ import org.springframework.stereotype.Service;
 
 import com.office.visits.model.Visit;
 import com.office.visits.repositories.VisitRepository;
+import com.office.visits.services.interfaces.CRUD;
 
 @Service
-public class VisitService {
+public class VisitService implements CRUD<Visit> {
 
 	@Autowired
 	VisitRepository visitRepository;
 
+	@Override
 	public List<Visit> getAll() {
 		return visitRepository.findAll();
 	}
 
+	@Override
 	public Visit save(Visit visit) {
 		return visitRepository.save(visit);
 	}
 
-	public Optional<Visit> getVisit(Long id) {
+	@Override
+	public Optional<Visit> getById(Long id) {
 		return visitRepository.findById(id);
 	}
 
+	@Override
 	public void deleteById(Long id) {
 		visitRepository.deleteById(id);
 	}
 
 	@Transactional
-	public Visit updateVisit(Long id, Visit visitToUpdate) {
+	@Override
+	public Visit update(Long id, Visit visitToUpdate) {
 		Visit visitFromDB = visitRepository.getReferenceById(id);
 		if (visitFromDB != null) {
 			visitFromDB.setDate(visitToUpdate.getDate());

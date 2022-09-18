@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.office.visits.model.Visit;
-import com.office.visits.services.VisitService;
+import com.office.visits.services.interfaces.CRUD;
 
 @RestController
 @RequestMapping("/visits")
 public class VisitController {
 
 	@Autowired
-	VisitService visitService;
+	CRUD<Visit> visitService;
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Visit>> findAll() {
@@ -44,7 +44,7 @@ public class VisitController {
 
 	@GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Visit> getVisit(@PathVariable("id") Long id) {
-		Optional<Visit> optionalVisit = visitService.getVisit(id);
+		Optional<Visit> optionalVisit = visitService.getById(id);
 		if (optionalVisit.isPresent()) {
 			return new ResponseEntity<>(optionalVisit.get(), HttpStatus.OK);
 		} else {
@@ -60,7 +60,7 @@ public class VisitController {
 
 	@PutMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Visit> updateVisit(@PathVariable("id") Long id, @RequestBody Visit visitToUpdate) {
-		return new ResponseEntity<>(visitService.updateVisit(id, visitToUpdate), HttpStatus.OK);
+		return new ResponseEntity<>(visitService.update(id, visitToUpdate), HttpStatus.OK);
 	}
 
 }

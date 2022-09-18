@@ -15,6 +15,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.office.visits.model.enums.CustomerLevel;
 import com.office.visits.model.enums.Gender;
 import com.office.visits.model.enums.PersonRole;
 
@@ -44,6 +45,8 @@ public class Person {
 	private String phone;
 	
 	private PersonRole role;
+	
+	private CustomerLevel customerLevel;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
 	@JsonManagedReference
@@ -127,6 +130,14 @@ public class Person {
 
 	public void setRole(PersonRole role) {
 		this.role = role;
+	}
+
+	public CustomerLevel getCustomerLevel() {
+		return customerLevel;
+	}
+
+	public void setCustomerLevel(CustomerLevel customerLevel) {
+		this.customerLevel = customerLevel;
 	}
 
 }

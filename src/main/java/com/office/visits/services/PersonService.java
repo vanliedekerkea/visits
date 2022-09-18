@@ -58,6 +58,7 @@ public class PersonService implements CRUD<Person> {
 			personFromDB.setEmail(personToUpdate.getEmail());
 			personFromDB.setPhone(personToUpdate.getPhone());
 			personFromDB.setRole(personToUpdate.getRole());
+			personFromDB.setCustomerLevel(personToUpdate.getCustomerLevel());
 			// A person's address should not be updated here
 			return personRepository.save(personFromDB);
 		} else {

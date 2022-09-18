@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.office.visits.model.enums.Gender;
+import com.office.visits.model.enums.PersonRole;
 
 @Entity
 @Table(name = "PERSON")
@@ -41,6 +42,8 @@ public class Person {
 	private String email;
 
 	private String phone;
+	
+	private PersonRole role;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
 	@JsonManagedReference
@@ -116,6 +119,14 @@ public class Person {
 
 	public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
+	}
+
+	public PersonRole getRole() {
+		return role;
+	}
+
+	public void setRole(PersonRole role) {
+		this.role = role;
 	}
 
 }

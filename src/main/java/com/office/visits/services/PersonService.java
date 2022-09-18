@@ -10,9 +10,10 @@ import com.office.visits.model.Address;
 import com.office.visits.model.Person;
 import com.office.visits.repositories.AddressRepository;
 import com.office.visits.repositories.PersonRepository;
+import com.office.visits.services.interfaces.CRUD;
 
 @Service
-public class PersonService implements DeleteGetUpdate<Person> {
+public class PersonService implements CRUD<Person> {
 
 	@Autowired
 	PersonRepository personRepository;
@@ -20,10 +21,12 @@ public class PersonService implements DeleteGetUpdate<Person> {
 	@Autowired
 	AddressRepository addressRepository;
 
+	@Override
 	public List<Person> getAll() {
 		return personRepository.findAll();
 	}
 
+	@Override
 	public Person save(Person person) {
 		for (Address a : person.getAddresses()) {
 			if (a.getPerson() == null) {

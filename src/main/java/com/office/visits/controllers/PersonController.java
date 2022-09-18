@@ -19,18 +19,18 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.office.visits.model.Address;
 import com.office.visits.model.Person;
-import com.office.visits.services.AddressService;
-import com.office.visits.services.PersonService;
+import com.office.visits.services.interfaces.CRUD;
+import com.office.visits.services.interfaces.CRUDForReference;
 
 @RestController
 @RequestMapping("/people")
 public class PersonController {
 
 	@Autowired
-	PersonService personService;
+	CRUD<Person> personService;
 
 	@Autowired
-	AddressService addressService;
+	CRUDForReference<Address> addressService;
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Person>> findAll() {

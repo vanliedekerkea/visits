@@ -10,17 +10,20 @@ import org.springframework.stereotype.Service;
 
 import com.office.visits.model.Visit;
 import com.office.visits.repositories.VisitRepository;
+import com.office.visits.services.interfaces.CRUD;
 
 @Service
-public class VisitService implements DeleteGetUpdate<Visit> {
+public class VisitService implements CRUD<Visit> {
 
 	@Autowired
 	VisitRepository visitRepository;
 
+	@Override
 	public List<Visit> getAll() {
 		return visitRepository.findAll();
 	}
 
+	@Override
 	public Visit save(Visit visit) {
 		return visitRepository.save(visit);
 	}

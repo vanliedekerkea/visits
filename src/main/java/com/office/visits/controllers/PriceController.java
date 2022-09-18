@@ -16,18 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.office.visits.model.Price;
-import com.office.visits.services.DeleteGetUpdate;
+import com.office.visits.services.interfaces.CRUDForReference;
 
 @RestController
 @RequestMapping("/prices")
 public class PriceController {
 
 	@Autowired
-	DeleteGetUpdate<Price> priceDeleteGetUpdateService;
+	CRUDForReference<Price> priceService;
 
 	@GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Price> getPrice(@PathVariable("id") Long id) {
-		Optional<Price> optionalPrice = priceDeleteGetUpdateService.getById(id);
+		Optional<Price> optionalPrice = priceService.getById(id);
 		if (optionalPrice.isPresent()) {
 			return new ResponseEntity<>(optionalPrice.get(), HttpStatus.OK);
 		} else {
@@ -37,13 +37,13 @@ public class PriceController {
 
 	@DeleteMapping("{id}")
 	public ResponseEntity<Price> deletePrice(@PathVariable("id") Long id) {
-		priceDeleteGetUpdateService.deleteById(id);
+		priceService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@PutMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Price> updatePrice(@PathVariable("id") Long id, @RequestBody Price priceToUpdate) {
-		return new ResponseEntity<>(priceDeleteGetUpdateService.update(id, priceToUpdate), HttpStatus.OK);
+		return new ResponseEntity<>(priceService.update(id, priceToUpdate), HttpStatus.OK);
 	}
 
 }

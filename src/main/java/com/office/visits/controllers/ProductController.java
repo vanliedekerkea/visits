@@ -19,18 +19,18 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.office.visits.model.Price;
 import com.office.visits.model.Product;
-import com.office.visits.services.PriceService;
-import com.office.visits.services.ProductService;
+import com.office.visits.services.interfaces.CRUD;
+import com.office.visits.services.interfaces.CRUDForReference;
 
 @RestController
 @RequestMapping("/products")
 public class ProductController {
 
 	@Autowired
-	ProductService productService;
+	CRUD<Product> productService;
 
 	@Autowired
-	PriceService priceService;
+	CRUDForReference<Price> priceService;
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Product>> findAll() {

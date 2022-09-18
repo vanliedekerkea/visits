@@ -8,17 +8,20 @@ import org.springframework.stereotype.Service;
 
 import com.office.visits.model.Product;
 import com.office.visits.repositories.ProductRepository;
+import com.office.visits.services.interfaces.CRUD;
 
 @Service
-public class ProductService implements DeleteGetUpdate<Product> {
+public class ProductService implements CRUD<Product> {
 
 	@Autowired
 	ProductRepository productRepository;
 
+	@Override
 	public List<Product> getAll() {
 		return productRepository.findAll();
 	}
 
+	@Override
 	public Product save(Product product) {
 		return productRepository.save(product);
 	}

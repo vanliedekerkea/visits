@@ -11,9 +11,10 @@ import com.office.visits.model.Address;
 import com.office.visits.model.Person;
 import com.office.visits.repositories.AddressRepository;
 import com.office.visits.repositories.PersonRepository;
+import com.office.visits.services.interfaces.CRUDForReference;
 
 @Service
-public class AddressService implements DeleteGetUpdate<Address> {
+public class AddressService implements CRUDForReference<Address> {
 
 	@Autowired
 	PersonRepository personRepository;
@@ -21,11 +22,13 @@ public class AddressService implements DeleteGetUpdate<Address> {
 	@Autowired
 	AddressRepository addressRepository;
 
+	@Override
 	public List<Address> getAll(Long id) {
 		return personRepository.findById(id).stream().findFirst().orElseThrow(() -> new EmptyResultDataAccessException(
 				String.format("No %s entity with id %s exists!", Person.class, id), 1)).getAddresses();
 	}
 
+	@Override
 	public Address save(Long personId, Address address) {
 		Person person = personRepository.findById(personId).stream().findFirst()
 				.orElseThrow(() -> new EmptyResultDataAccessException(

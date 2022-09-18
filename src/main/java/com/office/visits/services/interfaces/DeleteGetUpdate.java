@@ -1,4 +1,4 @@
-package com.office.visits.services;
+package com.office.visits.services.interfaces;
 
 import java.util.Optional;
 

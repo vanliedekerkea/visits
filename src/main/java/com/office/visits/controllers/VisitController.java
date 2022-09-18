@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.office.visits.model.Visit;
-import com.office.visits.services.VisitService;
+import com.office.visits.services.interfaces.CRUD;
 
 @RestController
 @RequestMapping("/visits")
 public class VisitController {
 
 	@Autowired
-	VisitService visitService;
+	CRUD<Visit> visitService;
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Visit>> findAll() {

@@ -16,18 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.office.visits.model.Address;
-import com.office.visits.services.DeleteGetUpdate;
+import com.office.visits.services.interfaces.CRUDForReference;
 
 @RestController
 @RequestMapping("/addresses")
 public class AddressController {
 
 	@Autowired
-	DeleteGetUpdate<Address> addressDeleteGetUpdateService;
+	CRUDForReference<Address> addressService;
 
 	@GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Address> getAddress(@PathVariable("id") Long id) {
-		Optional<Address> optionalAddress = addressDeleteGetUpdateService.getById(id);
+		Optional<Address> optionalAddress = addressService.getById(id);
 		if (optionalAddress.isPresent()) {
 			return new ResponseEntity<>(optionalAddress.get(), HttpStatus.OK);
 		} else {
@@ -37,13 +37,13 @@ public class AddressController {
 
 	@DeleteMapping("{id}")
 	public ResponseEntity<Address> deleteAddress(@PathVariable("id") Long id) {
-		addressDeleteGetUpdateService.deleteById(id);
+		addressService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@PutMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Address> updateAddress(@PathVariable("id") Long id, @RequestBody Address addressToUpdate) {
-		return new ResponseEntity<>(addressDeleteGetUpdateService.update(id, addressToUpdate), HttpStatus.OK);
+		return new ResponseEntity<>(addressService.update(id, addressToUpdate), HttpStatus.OK);
 	}
 
 }

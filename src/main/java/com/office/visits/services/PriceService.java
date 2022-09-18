@@ -11,9 +11,10 @@ import com.office.visits.model.Price;
 import com.office.visits.model.Product;
 import com.office.visits.repositories.PriceRepository;
 import com.office.visits.repositories.ProductRepository;
+import com.office.visits.services.interfaces.CRUDForReference;
 
 @Service
-public class PriceService implements DeleteGetUpdate<Price> {
+public class PriceService implements CRUDForReference<Price> {
 
 	@Autowired
 	PriceRepository priceRepository;
@@ -21,11 +22,13 @@ public class PriceService implements DeleteGetUpdate<Price> {
 	@Autowired
 	ProductRepository productRepository;
 
+	@Override
 	public List<Price> getAll(Long id) {
 		return productRepository.findById(id).stream().findFirst().orElseThrow(() -> new EmptyResultDataAccessException(
 				String.format("No %s entity with id %s exists!", Price.class, id), 1)).getPrices();
 	}
 
+	@Override
 	public Price save(Long productId, Price price) {
 		Product product = productRepository.findById(productId).stream().findFirst()
 				.orElseThrow(() -> new EmptyResultDataAccessException(

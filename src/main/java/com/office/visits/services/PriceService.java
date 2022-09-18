@@ -13,7 +13,7 @@ import com.office.visits.repositories.PriceRepository;
 import com.office.visits.repositories.ProductRepository;
 
 @Service
-public class PriceService {
+public class PriceService implements DeleteGetUpdate<Price> {
 
 	@Autowired
 	PriceRepository priceRepository;
@@ -34,15 +34,18 @@ public class PriceService {
 		return priceRepository.save(price);
 	}
 
-	public Optional<Price> getPrice(Long id) {
+	@Override
+	public Optional<Price> getById(Long id) {
 		return priceRepository.findById(id);
 	}
 
+	@Override
 	public void deleteById(Long id) {
 		priceRepository.deleteById(id);
 	}
 
-	public Price updatePrice(Long id, Price priceToUpdate) {
+	@Override
+	public Price update(Long id, Price priceToUpdate) {
 		Price priceFromDB = priceRepository.getReferenceById(id);
 		if (priceFromDB != null) {
 			priceFromDB.setCurrency(priceToUpdate.getCurrency());

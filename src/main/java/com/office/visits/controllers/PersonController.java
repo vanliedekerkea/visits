@@ -49,7 +49,7 @@ public class PersonController {
 
 	@GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Person> getPerson(@PathVariable("id") Long id) {
-		Optional<Person> optionalPerson = personService.getPerson(id);
+		Optional<Person> optionalPerson = personService.getById(id);
 		if (optionalPerson.isPresent()) {
 			return new ResponseEntity<>(optionalPerson.get(), HttpStatus.OK);
 		} else {
@@ -65,7 +65,7 @@ public class PersonController {
 
 	@PutMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Person> updatePerson(@PathVariable("id") Long id, @RequestBody Person personToUpdate) {
-		return new ResponseEntity<>(personService.updatePerson(id, personToUpdate), HttpStatus.OK);
+		return new ResponseEntity<>(personService.update(id, personToUpdate), HttpStatus.OK);
 	}
 
 	@GetMapping(path = "{id}/addresses", produces = MediaType.APPLICATION_JSON_VALUE)

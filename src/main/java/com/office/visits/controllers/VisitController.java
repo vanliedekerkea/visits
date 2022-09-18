@@ -44,7 +44,7 @@ public class VisitController {
 
 	@GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Visit> getVisit(@PathVariable("id") Long id) {
-		Optional<Visit> optionalVisit = visitService.getVisit(id);
+		Optional<Visit> optionalVisit = visitService.getById(id);
 		if (optionalVisit.isPresent()) {
 			return new ResponseEntity<>(optionalVisit.get(), HttpStatus.OK);
 		} else {
@@ -60,7 +60,7 @@ public class VisitController {
 
 	@PutMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Visit> updateVisit(@PathVariable("id") Long id, @RequestBody Visit visitToUpdate) {
-		return new ResponseEntity<>(visitService.updateVisit(id, visitToUpdate), HttpStatus.OK);
+		return new ResponseEntity<>(visitService.update(id, visitToUpdate), HttpStatus.OK);
 	}
 
 }

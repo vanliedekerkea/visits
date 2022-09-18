@@ -10,7 +10,7 @@ import com.office.visits.model.Product;
 import com.office.visits.repositories.ProductRepository;
 
 @Service
-public class ProductService {
+public class ProductService implements DeleteGetUpdate<Product> {
 
 	@Autowired
 	ProductRepository productRepository;
@@ -23,15 +23,18 @@ public class ProductService {
 		return productRepository.save(product);
 	}
 
-	public Optional<Product> getProduct(Long id) {
+	@Override
+	public Optional<Product> getById(Long id) {
 		return productRepository.findById(id);
 	}
 
+	@Override
 	public void deleteById(Long id) {
 		productRepository.deleteById(id);
 	}
 
-	public Product updateProduct(Long id, Product productToUpdate) {
+	@Override
+	public Product update(Long id, Product productToUpdate) {
 		Product productFromDB = productRepository.getReferenceById(id);
 		if (productFromDB != null) {
 			productFromDB.setName(productToUpdate.getName());

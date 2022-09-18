@@ -12,7 +12,7 @@ import com.office.visits.repositories.AddressRepository;
 import com.office.visits.repositories.PersonRepository;
 
 @Service
-public class PersonService {
+public class PersonService implements DeleteGetUpdate<Person> {
 
 	@Autowired
 	PersonRepository personRepository;
@@ -33,15 +33,18 @@ public class PersonService {
 		return personRepository.save(person);
 	}
 
-	public Optional<Person> getPerson(Long id) {
+	@Override
+	public Optional<Person> getById(Long id) {
 		return personRepository.findById(id);
 	}
 
+	@Override
 	public void deleteById(Long id) {
 		personRepository.deleteById(id);
 	}
 
-	public Person updatePerson(Long id, Person personToUpdate) {
+	@Override
+	public Person update(Long id, Person personToUpdate) {
 		Person personFromDB = personRepository.getReferenceById(id);
 		if (personFromDB != null) {
 			personFromDB.setDateOfBirth(personToUpdate.getDateOfBirth());

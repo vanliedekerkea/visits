@@ -12,7 +12,7 @@ import com.office.visits.model.Visit;
 import com.office.visits.repositories.VisitRepository;
 
 @Service
-public class VisitService {
+public class VisitService implements DeleteGetUpdate<Visit> {
 
 	@Autowired
 	VisitRepository visitRepository;
@@ -25,16 +25,19 @@ public class VisitService {
 		return visitRepository.save(visit);
 	}
 
-	public Optional<Visit> getVisit(Long id) {
+	@Override
+	public Optional<Visit> getById(Long id) {
 		return visitRepository.findById(id);
 	}
 
+	@Override
 	public void deleteById(Long id) {
 		visitRepository.deleteById(id);
 	}
 
 	@Transactional
-	public Visit updateVisit(Long id, Visit visitToUpdate) {
+	@Override
+	public Visit update(Long id, Visit visitToUpdate) {
 		Visit visitFromDB = visitRepository.getReferenceById(id);
 		if (visitFromDB != null) {
 			visitFromDB.setDate(visitToUpdate.getDate());

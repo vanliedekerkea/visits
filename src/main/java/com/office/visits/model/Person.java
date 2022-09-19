@@ -1,11 +1,14 @@
 package com.office.visits.model;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,14 +46,19 @@ public class Person {
 	private String email;
 
 	private String phone;
-	
+
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private PersonRole role;
-	
+
 	private CustomerLevel customerLevel;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
 	@JsonManagedReference
-	private List<Address> addresses;
+	private List<Address> addresses = Collections.emptyList();
+
+	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL)
+	private List<Booking> bookings = Collections.emptyList();
 
 	public Long getId() {
 		return this.id;
@@ -138,6 +146,14 @@ public class Person {
 
 	public void setCustomerLevel(CustomerLevel customerLevel) {
 		this.customerLevel = customerLevel;
+	}
+
+	public List<Booking> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(List<Booking> bookings) {
+		this.bookings = bookings;
 	}
 
 }

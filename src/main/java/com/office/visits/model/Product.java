@@ -2,6 +2,8 @@ package com.office.visits.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,49 +19,50 @@ import javax.persistence.OneToMany;
 @Entity
 public class Product {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_generator")
-    @SequenceGenerator(name = "product_generator", sequenceName = "product_seq", allocationSize = 50)
-    private long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_generator")
+	@SequenceGenerator(name = "product_generator", sequenceName = "product_seq", allocationSize = 50)
+	private long id;
 
-    private String name;
+	private String name;
 
-    private ProductType productType;
+	@Enumerated(EnumType.STRING)
+	private ProductType productType;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-    @JsonManagedReference
-    private List<Price> prices = Collections.emptyList();
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+	@JsonManagedReference
+	private List<Price> prices = Collections.emptyList();
 
-    public long getId() {
-        return id;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public ProductType getProductType() {
-        return productType;
-    }
+	public ProductType getProductType() {
+		return productType;
+	}
 
-    public void setProductType(ProductType productType) {
-        this.productType = productType;
-    }
+	public void setProductType(ProductType productType) {
+		this.productType = productType;
+	}
 
-    public List<Price> getPrices() {
-        return prices;
-    }
+	public List<Price> getPrices() {
+		return prices;
+	}
 
-    public void setPrices(List<Price> prices) {
-        this.prices = prices;
-    }
+	public void setPrices(List<Price> prices) {
+		this.prices = prices;
+	}
 
 }

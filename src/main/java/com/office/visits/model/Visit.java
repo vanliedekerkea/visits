@@ -1,12 +1,16 @@
 package com.office.visits.model;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -30,6 +34,9 @@ public class Visit {
 
 	@Lob
 	private String note;
+
+	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL)
+	List<Booking> bookings = Collections.emptyList();
 
 	public Long getId() {
 		return this.id;
@@ -77,6 +84,14 @@ public class Visit {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public List<Booking> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(List<Booking> bookings) {
+		this.bookings = bookings;
 	}
 
 }

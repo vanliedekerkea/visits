@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,6 +26,7 @@ public class Product {
 
 	private String name;
 
+	@Enumerated(EnumType.STRING)
 	private ProductType productType;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")

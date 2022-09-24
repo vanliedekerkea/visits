@@ -41,6 +41,7 @@ public class Person {
 
 	private String title;
 
+	@Enumerated(EnumType.STRING)
 	private Gender gender;
 
 	private String email;
@@ -51,6 +52,7 @@ public class Person {
 	@Enumerated(EnumType.STRING)
 	private PersonRole role;
 
+	@Enumerated(EnumType.STRING)
 	private CustomerLevel customerLevel;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "person")

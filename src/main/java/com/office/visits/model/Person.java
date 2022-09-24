@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,14 +40,17 @@ public class Person {
 
 	private String title;
 
+	@Enumerated(EnumType.STRING)
 	private Gender gender;
 
 	private String email;
 
 	private String phone;
-	
+
+	@Enumerated(EnumType.STRING)
 	private PersonRole role;
-	
+
+	@Enumerated(EnumType.STRING)
 	private CustomerLevel customerLevel;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "person")

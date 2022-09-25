@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.office.visits.model.Booking;
+import com.office.visits.dto.booking.BookingDTO;
 import com.office.visits.services.interfaces.CRUD;
 
 @RestController
@@ -25,16 +25,16 @@ import com.office.visits.services.interfaces.CRUD;
 public class BookingController {
 
 	@Autowired
-	CRUD<Booking> bookingService;
+	CRUD<BookingDTO> bookingService;
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Booking>> findAll() {
+	public ResponseEntity<List<BookingDTO>> findAll() {
 		return new ResponseEntity<>(bookingService.getAll(), HttpStatus.OK);
 	}
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Booking> createBooking(@RequestBody Booking newBooking) {
-		Booking booking = bookingService.save(newBooking);
+	public ResponseEntity<BookingDTO> createBooking(@RequestBody BookingDTO newBooking) {
+		BookingDTO booking = bookingService.save(newBooking);
 		if (booking != null) {
 			return new ResponseEntity<>(booking, HttpStatus.CREATED);
 		} else {
@@ -43,8 +43,8 @@ public class BookingController {
 	}
 
 	@GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Booking> getBooking(@PathVariable("id") Long id) {
-		Optional<Booking> optionalBooking = bookingService.getById(id);
+	public ResponseEntity<BookingDTO> getBooking(@PathVariable("id") Long id) {
+		Optional<BookingDTO> optionalBooking = bookingService.getById(id);
 		if (optionalBooking.isPresent()) {
 			return new ResponseEntity<>(optionalBooking.get(), HttpStatus.OK);
 		} else {
@@ -53,13 +53,13 @@ public class BookingController {
 	}
 
 	@DeleteMapping("{id}")
-	public ResponseEntity<Booking> deleteBooking(@PathVariable("id") Long id) {
+	public ResponseEntity<BookingDTO> deleteBooking(@PathVariable("id") Long id) {
 		bookingService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@PutMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Booking> updateBooking(@PathVariable("id") Long id, @RequestBody Booking bookingToUpdate) {
+	public ResponseEntity<BookingDTO> updateBooking(@PathVariable("id") Long id, @RequestBody BookingDTO bookingToUpdate) {
 		return new ResponseEntity<>(bookingService.update(id, bookingToUpdate), HttpStatus.OK);
 	}
 

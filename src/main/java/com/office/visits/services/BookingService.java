@@ -2,35 +2,53 @@ package com.office.visits.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.MappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.office.visits.dto.booking.BookingDTO;
+import com.office.visits.dto.booking.mapper.BookingDTOToBooking;
+import com.office.visits.dto.booking.mapper.BookingToBookingDTO;
 import com.office.visits.model.Booking;
 import com.office.visits.repositories.BookingRepository;
+import com.office.visits.repositories.PersonRepository;
+import com.office.visits.repositories.VisitRepository;
 import com.office.visits.services.interfaces.CRUD;
 
 @Service
-public class BookingService implements CRUD<Booking> {
+public class BookingService implements CRUD<BookingDTO> {
 
 	@Autowired
 	BookingRepository bookingRepository;
 
+	@Autowired
+	VisitRepository visitRepository;
+
+	@Autowired
+	PersonRepository personRepository;
+
 	@Override
-	public List<Booking> getAll() {
-		return bookingRepository.findAll();
+	public List<BookingDTO> getAll() {
+		return bookingRepository.findAll().stream().map(new BookingToBookingDTO()).toList();
+	}
+
+	@Transactional
+	@Override
+	public BookingDTO save(BookingDTO bookingDTO) {
+		Booking booking = bookingRepository
+				.save(Stream.of(bookingDTO).map(new BookingDTOToBooking(visitRepository, personRepository)).findFirst()
+						.orElseThrow(() -> new MappingException("Unable to map BookingDTO")));
+		return Stream.of(booking).map(new BookingToBookingDTO()).findFirst()
+				.orElseThrow(() -> new MappingException("Unable to map Booking"));
 	}
 
 	@Override
-	public Booking save(Booking booking) {
-		return bookingRepository.save(booking);
-	}
-
-	@Override
-	public Optional<Booking> getById(Long id) {
-		return bookingRepository.findById(id);
+	public Optional<BookingDTO> getById(Long id) {
+		return bookingRepository.findById(id).map(new BookingToBookingDTO());
 	}
 
 	@Override
@@ -40,12 +58,13 @@ public class BookingService implements CRUD<Booking> {
 
 	@Transactional
 	@Override
-	public Booking update(Long id, Booking bookingToUpdate) {
+	public BookingDTO update(Long id, BookingDTO bookingToUpdate) {
 		Booking bookingFromDB = bookingRepository.getReferenceById(id);
 		if (bookingFromDB != null) {
-			bookingFromDB.setPerson(bookingToUpdate.getPerson());
-			bookingFromDB.setVisit(bookingToUpdate.getVisit());
-			return bookingRepository.save(bookingFromDB);
+			bookingFromDB.setPerson(personRepository.getReferenceById(bookingToUpdate.getPersonId()));
+			bookingFromDB.setVisit(visitRepository.getReferenceById(bookingToUpdate.getVisitId()));
+			return Stream.of(bookingRepository.save(bookingFromDB)).map(new BookingToBookingDTO()).findFirst()
+					.orElseThrow(() -> new MappingException("Unable to map Booking"));
 		} else {
 			return null;
 		}

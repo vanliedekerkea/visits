@@ -30,25 +30,31 @@ public class BookingService implements CRUD<BookingDTO> {
 
 	@Autowired
 	PersonRepository personRepository;
+	
+	@Autowired
+	BookingDTOToBooking bookingDTOToBooking;
+	
+	@Autowired
+	BookingToBookingDTO bookingToBookingDTO;
 
 	@Override
 	public List<BookingDTO> getAll() {
-		return bookingRepository.findAll().stream().map(new BookingToBookingDTO()).toList();
+		return bookingRepository.findAll().stream().map(bookingToBookingDTO).toList();
 	}
 
 	@Transactional
 	@Override
 	public BookingDTO save(BookingDTO bookingDTO) {
 		Booking booking = bookingRepository
-				.save(Stream.of(bookingDTO).map(new BookingDTOToBooking(visitRepository, personRepository)).findFirst()
+				.save(Stream.of(bookingDTO).map(bookingDTOToBooking).findFirst()
 						.orElseThrow(() -> new MappingException("Unable to map BookingDTO")));
-		return Stream.of(booking).map(new BookingToBookingDTO()).findFirst()
+		return Stream.of(booking).map(bookingToBookingDTO).findFirst()
 				.orElseThrow(() -> new MappingException("Unable to map Booking"));
 	}
 
 	@Override
 	public Optional<BookingDTO> getById(Long id) {
-		return bookingRepository.findById(id).map(new BookingToBookingDTO());
+		return bookingRepository.findById(id).map(bookingToBookingDTO);
 	}
 
 	@Override
@@ -63,7 +69,7 @@ public class BookingService implements CRUD<BookingDTO> {
 		if (bookingFromDB != null) {
 			bookingFromDB.setPerson(personRepository.getReferenceById(bookingToUpdate.getPersonId()));
 			bookingFromDB.setVisit(visitRepository.getReferenceById(bookingToUpdate.getVisitId()));
-			return Stream.of(bookingRepository.save(bookingFromDB)).map(new BookingToBookingDTO()).findFirst()
+			return Stream.of(bookingRepository.save(bookingFromDB)).map(bookingToBookingDTO).findFirst()
 					.orElseThrow(() -> new MappingException("Unable to map Booking"));
 		} else {
 			return null;

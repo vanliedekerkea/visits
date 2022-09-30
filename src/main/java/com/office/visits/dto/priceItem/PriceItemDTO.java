@@ -1,23 +1,11 @@
-package com.office.visits.model;
+package com.office.visits.dto.priceItem;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
+public class PriceItemDTO {
 
-@Entity
-public class PriceItem {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "price_generator")
-	@SequenceGenerator(name = "price_generator", sequenceName = "price_seq", allocationSize = 50)
-	private long id;
+	private long priceItemId;
 
 	private BigDecimal finalPrice;
 
@@ -29,22 +17,20 @@ public class PriceItem {
 
 	private boolean isSold;
 
-	@ManyToOne
-	@JoinColumn(name = "PRICE_ID", nullable = false, referencedColumnName = "ID")
-	private Price originalPrice;
+	private long originalPriceId;
 
-	@ManyToOne
-	@JoinColumn(name = "VISIT_ID", nullable = false, referencedColumnName = "ID")
-	private Visit linkedVisit;
+	private long linkedVisitId;
 
+	// TODO: remove me once mappers work @JsonFormat(pattern = "yyyy-MM-dd
+	// HH:mm:ss")
 	private LocalDateTime sellDateTime;
 
-	public long getId() {
-		return id;
+	public long getPriceItemId() {
+		return priceItemId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setPriceItemId(long priceItemId) {
+		this.priceItemId = priceItemId;
 	}
 
 	public BigDecimal getFinalPrice() {
@@ -87,20 +73,20 @@ public class PriceItem {
 		this.isSold = isSold;
 	}
 
-	public Price getOriginalPrice() {
-		return originalPrice;
+	public long getOriginalPriceId() {
+		return originalPriceId;
 	}
 
-	public void setOriginalPrice(Price originalPrice) {
-		this.originalPrice = originalPrice;
+	public void setOriginalPriceId(long originalPriceId) {
+		this.originalPriceId = originalPriceId;
 	}
 
-	public Visit getLinkedVisit() {
-		return linkedVisit;
+	public long getLinkedVisitId() {
+		return linkedVisitId;
 	}
 
-	public void setLinkedVisit(Visit linkedVisit) {
-		this.linkedVisit = linkedVisit;
+	public void setLinkedVisitId(long linkedVisitId) {
+		this.linkedVisitId = linkedVisitId;
 	}
 
 	public LocalDateTime getSellDateTime() {

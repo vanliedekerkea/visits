@@ -79,7 +79,7 @@ public class PriceItem {
 		this.quantity = quantity;
 	}
 
-	public boolean isSold() {
+	public boolean getSold() {
 		return isSold;
 	}
 
@@ -91,15 +91,15 @@ public class PriceItem {
 		return originalPrice;
 	}
 
-	public void setOriginalPrice(Price originalPrice) {
+	public void setPrice(Price originalPrice) {
 		this.originalPrice = originalPrice;
 	}
 
-	public Visit getLinkedVisit() {
+	public Visit getVisit() {
 		return linkedVisit;
 	}
 
-	public void setLinkedVisit(Visit linkedVisit) {
+	public void setVisit(Visit linkedVisit) {
 		this.linkedVisit = linkedVisit;
 	}
 

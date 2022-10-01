@@ -25,7 +25,7 @@ public class PriceItemDTO {
 	// HH:mm:ss")
 	private LocalDateTime sellDateTime;
 
-	public long getPriceItemId() {
+	public long getId() {
 		return priceItemId;
 	}
 
@@ -65,7 +65,7 @@ public class PriceItemDTO {
 		this.quantity = quantity;
 	}
 
-	public boolean isSold() {
+	public boolean getSold() {
 		return isSold;
 	}
 
@@ -73,7 +73,7 @@ public class PriceItemDTO {
 		this.isSold = isSold;
 	}
 
-	public long getOriginalPriceId() {
+	public long getPriceId() {
 		return originalPriceId;
 	}
 
@@ -81,7 +81,7 @@ public class PriceItemDTO {
 		this.originalPriceId = originalPriceId;
 	}
 
-	public long getLinkedVisitId() {
+	public long getVisitId() {
 		return linkedVisitId;
 	}
 

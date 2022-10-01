@@ -1,8 +1,11 @@
 package com.office.visits.model;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.Currency;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -11,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -36,6 +40,9 @@ public class Price {
 	@JsonBackReference
 	private Product product;
 
+	@OneToMany(mappedBy = "price", cascade = CascadeType.ALL)
+	private Set<PriceItem> priceItems = Collections.emptySet();
+	
 	public CustomerLevel getCustomerLevel() {
 		return customerLevel;
 	}
@@ -74,6 +81,14 @@ public class Price {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	public Set<PriceItem> getPriceItems() {
+		return priceItems;
+	}
+
+	public void setPriceItems(Set<PriceItem> priceItems) {
+		this.priceItems = priceItems;
 	}
 
 }

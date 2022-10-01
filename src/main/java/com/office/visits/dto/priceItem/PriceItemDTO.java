@@ -3,6 +3,8 @@ package com.office.visits.dto.priceItem;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class PriceItemDTO {
 
 	private long priceItemId;
@@ -17,12 +19,11 @@ public class PriceItemDTO {
 
 	private boolean isSold;
 
-	private long originalPriceId;
+	private long priceId;
 
-	private long linkedVisitId;
+	private long visitId;
 
-	// TODO: remove me once mappers work @JsonFormat(pattern = "yyyy-MM-dd
-	// HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime sellDateTime;
 
 	public long getId() {
@@ -74,19 +75,19 @@ public class PriceItemDTO {
 	}
 
 	public long getPriceId() {
-		return originalPriceId;
+		return priceId;
 	}
 
-	public void setOriginalPriceId(long originalPriceId) {
-		this.originalPriceId = originalPriceId;
+	public void setPriceId(long originalPriceId) {
+		this.priceId = originalPriceId;
 	}
 
 	public long getVisitId() {
-		return linkedVisitId;
+		return visitId;
 	}
 
-	public void setLinkedVisitId(long linkedVisitId) {
-		this.linkedVisitId = linkedVisitId;
+	public void setVisitId(long linkedVisitId) {
+		this.visitId = linkedVisitId;
 	}
 
 	public LocalDateTime getSellDateTime() {

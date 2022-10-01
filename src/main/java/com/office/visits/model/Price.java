@@ -40,7 +40,7 @@ public class Price {
 	@JsonBackReference
 	private Product product;
 
-	@OneToMany(mappedBy = "originalPrice", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "price", cascade = CascadeType.ALL)
 	private Set<PriceItem> priceItems = Collections.emptySet();
 	
 	public CustomerLevel getCustomerLevel() {

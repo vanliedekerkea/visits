@@ -52,8 +52,8 @@ class PriceItemDTOToPriceItemTest {
 		final long PRICE_ITEM_ID = 30;
 		final BigDecimal FINAL_PRICE = new BigDecimal(19.90);
 		final BigDecimal QUANTITY = new BigDecimal(1);
-		priceItemDTO.setOriginalPriceId(PRICE_ID);
-		priceItemDTO.setLinkedVisitId(VISIT_ID);
+		priceItemDTO.setPriceId(PRICE_ID);
+		priceItemDTO.setVisitId(VISIT_ID);
 		priceItemDTO.setPriceItemId(PRICE_ITEM_ID);
 		priceItemDTO.setFinalPrice(FINAL_PRICE);
 		priceItemDTO.setQuantity(QUANTITY);
@@ -68,7 +68,7 @@ class PriceItemDTOToPriceItemTest {
 		assertEquals(PRICE_ITEM_ID, priceItem.getId());
 		assertEquals(FINAL_PRICE, priceItem.getFinalPrice());
 		assertEquals(QUANTITY, priceItem.getQuantity());
-		assertEquals(PRICE_ID, priceItem.getOriginalPrice().getId());
+		assertEquals(PRICE_ID, priceItem.getPrice().getId());
 		assertEquals(VISIT_ID, priceItem.getVisit().getId());
 	}
 

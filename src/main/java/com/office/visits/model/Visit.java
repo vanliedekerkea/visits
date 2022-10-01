@@ -38,7 +38,7 @@ public class Visit {
 	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL)
 	List<Booking> bookings = Collections.emptyList();
 	
-	@OneToMany(mappedBy = "linkedVisit", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL)
 	List<PriceItem> linkedPriceItems = Collections.emptyList();
 
 	public Long getId() {

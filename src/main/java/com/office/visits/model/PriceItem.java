@@ -31,11 +31,11 @@ public class PriceItem {
 
 	@ManyToOne
 	@JoinColumn(name = "PRICE_ID", nullable = false, referencedColumnName = "ID")
-	private Price originalPrice;
+	private Price price;
 
 	@ManyToOne
 	@JoinColumn(name = "VISIT_ID", nullable = false, referencedColumnName = "ID")
-	private Visit linkedVisit;
+	private Visit visit;
 
 	private LocalDateTime sellDateTime;
 
@@ -87,20 +87,20 @@ public class PriceItem {
 		this.isSold = isSold;
 	}
 
-	public Price getOriginalPrice() {
-		return originalPrice;
+	public Price getPrice() {
+		return price;
 	}
 
 	public void setPrice(Price originalPrice) {
-		this.originalPrice = originalPrice;
+		this.price = originalPrice;
 	}
 
 	public Visit getVisit() {
-		return linkedVisit;
+		return visit;
 	}
 
 	public void setVisit(Visit linkedVisit) {
-		this.linkedVisit = linkedVisit;
+		this.visit = linkedVisit;
 	}
 
 	public LocalDateTime getSellDateTime() {

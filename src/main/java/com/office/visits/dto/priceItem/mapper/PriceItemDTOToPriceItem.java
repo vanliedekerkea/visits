@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.office.visits.dto.priceItem.PriceItemDTO;
+import com.office.visits.model.Bill;
 import com.office.visits.model.Price;
 import com.office.visits.model.PriceItem;
 import com.office.visits.model.Visit;
+import com.office.visits.repositories.BillRepository;
 import com.office.visits.repositories.PriceRepository;
 import com.office.visits.repositories.VisitRepository;
 
@@ -21,11 +23,15 @@ public class PriceItemDTOToPriceItem implements Function<PriceItemDTO, PriceItem
 	@Autowired
 	PriceRepository priceRepository;
 
+	@Autowired
+	BillRepository billRepository;
+	
 	@Override
 	public PriceItem apply(PriceItemDTO priceItemDTO) {
 		PriceItem priceItem = new PriceItem();
 		Visit visit = visitRepository.getReferenceById(priceItemDTO.getVisitId());
 		Price price = priceRepository.getReferenceById(priceItemDTO.getPriceId());
+		Bill bill = billRepository.getReferenceById(priceItemDTO.getBillId());
 		priceItem.setId(priceItemDTO.getId());
 		priceItem.setVisit(visit);
 		priceItem.setPrice(price);
@@ -37,6 +43,7 @@ public class PriceItemDTOToPriceItem implements Function<PriceItemDTO, PriceItem
 		priceItem.setQuantity(priceItemDTO.getQuantity());
 		priceItem.setSellDateTime(priceItemDTO.getSellDateTime());
 		priceItem.setSold(priceItemDTO.getSold());
+		priceItem.setBill(bill);
 		return priceItem;
 	}
 

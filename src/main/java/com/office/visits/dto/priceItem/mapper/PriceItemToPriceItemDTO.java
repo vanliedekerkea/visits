@@ -13,7 +13,7 @@ public class PriceItemToPriceItemDTO implements Function<PriceItem, PriceItemDTO
 	@Override
 	public PriceItemDTO apply(PriceItem priceItem) {
 		PriceItemDTO priceItemDTO = new PriceItemDTO();
-		priceItemDTO.setPriceItemId(priceItem.getId());
+		priceItemDTO.setId(priceItem.getId());
 		priceItemDTO.setDiscount(priceItem.getDiscount());
 		priceItemDTO.setDiscountComment(priceItem.getDiscountComment());
 		priceItemDTO.setFinalPrice(priceItem.getFinalPrice());
@@ -22,6 +22,7 @@ public class PriceItemToPriceItemDTO implements Function<PriceItem, PriceItemDTO
 		priceItemDTO.setSold(priceItem.getSold());
 		priceItemDTO.setVisitId(priceItem.getVisit().getId());
 		priceItemDTO.setPriceId(priceItem.getPrice().getId());
+		priceItemDTO.setBillId(priceItem.getBill().getId());
 		return priceItemDTO;
 	}
 

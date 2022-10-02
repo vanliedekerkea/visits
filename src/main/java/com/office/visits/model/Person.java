@@ -3,6 +3,7 @@ package com.office.visits.model;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -59,9 +60,12 @@ public class Person {
 	@JsonManagedReference
 	private List<Address> addresses = Collections.emptyList();
 
-	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
 	private List<Booking> bookings = Collections.emptyList();
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
+	Set<Bill> bills = Collections.emptySet();
+	
 	public Long getId() {
 		return this.id;
 	}
@@ -156,6 +160,14 @@ public class Person {
 
 	public void setBookings(List<Booking> bookings) {
 		this.bookings = bookings;
+	}
+
+	public Set<Bill> getBills() {
+		return bills;
+	}
+
+	public void setBills(Set<Bill> bills) {
+		this.bills = bills;
 	}
 
 }

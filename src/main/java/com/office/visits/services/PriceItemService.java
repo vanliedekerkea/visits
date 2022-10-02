@@ -14,6 +14,7 @@ import com.office.visits.dto.priceItem.PriceItemDTO;
 import com.office.visits.dto.priceItem.mapper.PriceItemDTOToPriceItem;
 import com.office.visits.dto.priceItem.mapper.PriceItemToPriceItemDTO;
 import com.office.visits.model.PriceItem;
+import com.office.visits.repositories.BillRepository;
 import com.office.visits.repositories.PriceItemRepository;
 import com.office.visits.repositories.PriceRepository;
 import com.office.visits.repositories.VisitRepository;
@@ -30,6 +31,9 @@ public class PriceItemService implements CRUD<PriceItemDTO> {
 
 	@Autowired
 	PriceRepository priceRepository;
+	
+	@Autowired
+	BillRepository billRepository;
 
 	@Autowired
 	PriceItemDTOToPriceItem priceItemDTOToPriceItem;
@@ -74,6 +78,7 @@ public class PriceItemService implements CRUD<PriceItemDTO> {
 			priceItemFromDB.setQuantity(priceItemToUpdate.getQuantity());
 			priceItemFromDB.setSellDateTime(priceItemToUpdate.getSellDateTime());
 			priceItemFromDB.setSold(priceItemToUpdate.getSold());
+			priceItemFromDB.setBill(billRepository.getReferenceById(priceItemToUpdate.getBillId()));
 			return Stream.of(priceItemRepository.save(priceItemFromDB)).map(priceItemToPriceItemDTO).findFirst()
 					.orElseThrow(() -> new MappingException("Unable to map PriceItem"));
 		} else {

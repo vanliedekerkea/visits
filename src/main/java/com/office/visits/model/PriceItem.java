@@ -38,6 +38,10 @@ public class PriceItem {
 	private Visit visit;
 
 	private LocalDateTime sellDateTime;
+	
+	@ManyToOne
+	@JoinColumn(name = "BILL_ID", nullable = false, referencedColumnName = "ID")
+	private Bill bill;
 
 	public long getId() {
 		return id;
@@ -109,6 +113,14 @@ public class PriceItem {
 
 	public void setSellDateTime(LocalDateTime sellDateTime) {
 		this.sellDateTime = sellDateTime;
+	}
+
+	public Bill getBill() {
+		return bill;
+	}
+
+	public void setBill(Bill bill) {
+		this.bill = bill;
 	}
 
 }

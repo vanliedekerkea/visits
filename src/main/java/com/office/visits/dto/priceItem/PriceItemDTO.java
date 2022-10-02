@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class PriceItemDTO {
 
-	private long priceItemId;
+	private long id;
 
 	private BigDecimal finalPrice;
 
@@ -22,16 +22,18 @@ public class PriceItemDTO {
 	private long priceId;
 
 	private long visitId;
+	
+	private long billId;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime sellDateTime;
 
 	public long getId() {
-		return priceItemId;
+		return id;
 	}
 
-	public void setPriceItemId(long priceItemId) {
-		this.priceItemId = priceItemId;
+	public void setId(long priceItemId) {
+		this.id = priceItemId;
 	}
 
 	public BigDecimal getFinalPrice() {
@@ -96,6 +98,14 @@ public class PriceItemDTO {
 
 	public void setSellDateTime(LocalDateTime sellDateTime) {
 		this.sellDateTime = sellDateTime;
+	}
+
+	public long getBillId() {
+		return billId;
+	}
+
+	public void setBillId(long billId) {
+		this.billId = billId;
 	}
 
 }

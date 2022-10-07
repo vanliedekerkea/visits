@@ -30,7 +30,6 @@ public class BillDTOToBill implements Function<BillDTO, Bill> {
 		Set<PriceItem> priceItems = billDTO.getPriceItems().stream().map(priceItemDTOToPriceItem)
 				.collect(Collectors.toSet());
 		bill.setCreateDateTime(billDTO.getCreateDateTime());
-		bill.setId(billDTO.getId());
 		bill.setPerson(person);
 		bill.setPriceItems(priceItems);
 		return bill;

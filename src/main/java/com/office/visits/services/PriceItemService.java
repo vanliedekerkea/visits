@@ -70,7 +70,6 @@ public class PriceItemService implements CRUD<PriceItemDTO> {
 	public PriceItemDTO update(Long id, PriceItemDTO priceItemToUpdate) {
 		PriceItem priceItemFromDB = priceItemRepository.getReferenceById(id);
 		if (priceItemFromDB != null) {
-			priceItemFromDB.setVisit(visitRepository.getReferenceById(priceItemToUpdate.getVisitId()));
 			priceItemFromDB.setPrice(priceRepository.getReferenceById(priceItemToUpdate.getPriceId()));
 			priceItemFromDB.setDiscount(priceItemToUpdate.getDiscount());
 			priceItemFromDB.setDiscountComment(priceItemToUpdate.getDiscountComment());
@@ -78,7 +77,6 @@ public class PriceItemService implements CRUD<PriceItemDTO> {
 			priceItemFromDB.setQuantity(priceItemToUpdate.getQuantity());
 			priceItemFromDB.setSellDateTime(priceItemToUpdate.getSellDateTime());
 			priceItemFromDB.setSold(priceItemToUpdate.getSold());
-			priceItemFromDB.setBill(billRepository.getReferenceById(priceItemToUpdate.getBillId()));
 			return Stream.of(priceItemRepository.save(priceItemFromDB)).map(priceItemToPriceItemDTO).findFirst()
 					.orElseThrow(() -> new MappingException("Unable to map PriceItem"));
 		} else {

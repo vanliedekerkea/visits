@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Bill {
 
@@ -29,6 +31,7 @@ public class Bill {
 
 	@ManyToOne
 	@JoinColumn(name = "PERSON_ID", nullable = false, referencedColumnName = "ID")
+	@JsonBackReference
 	private Person person;
 
 	private LocalDateTime createDateTime;

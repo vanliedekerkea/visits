@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Booking {
 
@@ -24,6 +26,7 @@ public class Booking {
 
 	@ManyToOne
 	@JoinColumn(name = "PERSON_ID", nullable = false, referencedColumnName = "ID")
+	@JsonBackReference
 	private Person person;
 
 	public long getId() {

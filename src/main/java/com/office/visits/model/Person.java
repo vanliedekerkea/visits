@@ -61,9 +61,11 @@ public class Person {
 	private List<Address> addresses = Collections.emptyList();
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
+	@JsonManagedReference
 	private List<Booking> bookings = Collections.emptyList();
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
+	@JsonManagedReference
 	Set<Bill> bills = Collections.emptySet();
 	
 	public Long getId() {

@@ -34,13 +34,13 @@ public class PriceItem {
 	private Price price;
 
 	@ManyToOne
-	@JoinColumn(name = "VISIT_ID", nullable = false, referencedColumnName = "ID")
+	@JoinColumn(name = "VISIT_ID", referencedColumnName = "ID") //it can be nullable
 	private Visit visit;
 
 	private LocalDateTime sellDateTime;
 	
 	@ManyToOne
-	@JoinColumn(name = "BILL_ID", nullable = false, referencedColumnName = "ID")
+	@JoinColumn(name = "BILL_ID", referencedColumnName = "ID") //it can be nullable
 	private Bill bill;
 
 	public long getId() {

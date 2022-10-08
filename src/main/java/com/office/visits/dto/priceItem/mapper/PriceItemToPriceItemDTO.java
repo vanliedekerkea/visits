@@ -20,9 +20,7 @@ public class PriceItemToPriceItemDTO implements Function<PriceItem, PriceItemDTO
 		priceItemDTO.setQuantity(priceItem.getQuantity());
 		priceItemDTO.setSellDateTime(priceItem.getSellDateTime());
 		priceItemDTO.setSold(priceItem.getSold());
-		priceItemDTO.setVisitId(priceItem.getVisit().getId());
 		priceItemDTO.setPriceId(priceItem.getPrice().getId());
-		priceItemDTO.setBillId(priceItem.getBill().getId());
 		return priceItemDTO;
 	}
 

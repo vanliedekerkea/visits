@@ -21,18 +21,14 @@ class PriceItemToPriceItemDTOTest {
 
 	@Test
 	void testApply() {
-		final long VISIT_ID = 20;
 		final long PRICE_ID = 10;
 		final long PRICE_ITEM_ID = 30;
-		final long BILL_ID = 40;
 		final BigDecimal FINAL_PRICE = new BigDecimal(19.90);
 		final BigDecimal QUANTITY = new BigDecimal(1);
 		Visit visit = new Visit();
-		visit.setId(VISIT_ID);
 		Price price = new Price();
 		price.setId(PRICE_ID);
 		Bill bill = new Bill();
-		bill.setId(BILL_ID);
 		PriceItem priceItem = new PriceItem();
 		priceItem.setVisit(visit);
 		priceItem.setPrice(price);
@@ -42,9 +38,7 @@ class PriceItemToPriceItemDTOTest {
 		priceItem.setQuantity(QUANTITY);
 		PriceItemDTO priceItemDTO = Optional.of(priceItem).map(new PriceItemToPriceItemDTO()).get();
 		Assert.notNull(priceItemDTO, "PriceItemDTO is null");
-		assertEquals(VISIT_ID, priceItemDTO.getVisitId());
 		assertEquals(PRICE_ID, priceItemDTO.getPriceId());
-		assertEquals(BILL_ID, priceItemDTO.getBillId());
 		assertEquals(PRICE_ITEM_ID, priceItemDTO.getId());
 		assertEquals(FINAL_PRICE, priceItemDTO.getFinalPrice());
 		assertEquals(QUANTITY, priceItemDTO.getQuantity());

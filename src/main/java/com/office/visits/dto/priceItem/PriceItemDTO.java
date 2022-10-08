@@ -20,11 +20,7 @@ public class PriceItemDTO {
 	private boolean isSold;
 
 	private long priceId;
-
-	private long visitId;
 	
-	private long billId;
-
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime sellDateTime;
 
@@ -84,28 +80,12 @@ public class PriceItemDTO {
 		this.priceId = originalPriceId;
 	}
 
-	public long getVisitId() {
-		return visitId;
-	}
-
-	public void setVisitId(long linkedVisitId) {
-		this.visitId = linkedVisitId;
-	}
-
 	public LocalDateTime getSellDateTime() {
 		return sellDateTime;
 	}
 
 	public void setSellDateTime(LocalDateTime sellDateTime) {
 		this.sellDateTime = sellDateTime;
-	}
-
-	public long getBillId() {
-		return billId;
-	}
-
-	public void setBillId(long billId) {
-		this.billId = billId;
 	}
 
 }

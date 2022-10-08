@@ -35,9 +35,6 @@ class BillDTOToBillTest {
 	@Mock
 	PersonRepository personRepository;
 
-	@Mock
-	PriceItemDTOToPriceItem priceItemDTOToPriceItem;
-
 	@BeforeEach
 	public void initMocks() {
 		MockitoAnnotations.openMocks(this);
@@ -67,11 +64,9 @@ class BillDTOToBillTest {
 		Person personMock = new Person();
 		personMock.setId(PERSON_ID);
 		Mockito.when(personRepository.getReferenceById(PERSON_ID)).thenReturn(personMock);
-		Mockito.when(priceItemDTOToPriceItem.apply(priceItemDTO)).thenReturn(priceItem);
 		Bill bill = Optional.of(billDTO).map(BillDTOToBill).get();
 		assertNotNull(bill);
 		assertEquals(PERSON_ID, bill.getPerson().getId());
-		assertEquals(PRICE_ITEM_ID, bill.getPriceItems().stream().collect(Collectors.toList()).get(0).getId());
 	}
 
 }

@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.office.visits.dto.bill.BillDTO;
 import com.office.visits.dto.priceItem.PriceItemDTO;
-import com.office.visits.dto.priceItem.mapper.PriceItemDTOToPriceItem;
 import com.office.visits.model.Bill;
 import com.office.visits.model.Person;
 import com.office.visits.model.PriceItem;
